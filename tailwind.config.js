@@ -13,7 +13,10 @@ module.exports = {
       },
       backgroundColor: {
         'pink-light': '#E92A69' // And here you could add a variant with opacity
-      }
+      },
+      fontFamily: {
+        sans: ['Fira Sans', 'sans-serif'],
+      },
     },
   },
   plugins: [],
