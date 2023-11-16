@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, AfterViewInit } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
 
