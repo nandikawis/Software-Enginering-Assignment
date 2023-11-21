@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { MerchantPageComponent } from './merchant-page/merchant-page.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ProductPageComponent } from './product-page/product-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
-    MerchantPageComponent
+    MerchantPageComponent,
+    LandingPageComponent,
+    ProductPageComponent
   ],
   imports: [
     BrowserModule,
