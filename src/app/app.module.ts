@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -16,6 +16,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { PurchaseProductComponent } from './purchase-product/purchase-product.component';
 import { PaymentPageComponent } from './payment-page/payment-page.component';
+import { MerchantReviewsComponent } from './merchant-reviews/merchant-reviews.component';
+import { AnalyticReportComponent } from './analytic-report/analytic-report.component';
 
 @NgModule({
   declarations: [
@@ -32,11 +34,14 @@ import { PaymentPageComponent } from './payment-page/payment-page.component';
     EditProductComponent,
     ProductDetailComponent,
     PurchaseProductComponent,
-    PaymentPageComponent
+    PaymentPageComponent,
+    MerchantReviewsComponent,
+    AnalyticReportComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
