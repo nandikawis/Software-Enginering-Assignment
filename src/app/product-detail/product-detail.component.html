@@ -1,0 +1,360 @@
+<section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 py-10">
+    <div class="max-w-6xl mx-auto ">
+        <h1 class=" text-xl font-semibold pt-[3.5rem]">Product Detail</h1>
+        <div class="relative max-w-6xl mx-auto overflow-x-hidden min-h-fit mt-10">
+            <div class="flex transition-transform duration-500"
+                [style.transform]="'translateX(-' + promoSlideIndex * (100) + '%)'">
+                <ng-container *ngFor="let images of promo">
+                    <div class="flex-none w-[100%] p-4">
+                        <div class="mx-auto max-w-4xl rounded overflow-hidden shadow-lg h-[24rem]">
+                            <a href="">
+
+                                <img class="w-full" [src]="images.image">
+                            </a>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <button (click)="prevSlidePromo()"
+                class="absolute top-1/2 left-0 -translate-y-1/2 bg-transparent hover:bg-gray-200 text-black rounded-full w-[50px] h-[50px] flex items-center justify-center text-lg">
+                <img class="w-8 h-8" src="assets/prev.png" alt="">
+            </button>
+            <button (click)="nextSlidePromo()"
+                class="absolute top-1/2 right-0 -translate-y-1/2 bg-transparent hover:bg-gray-200 text-black rounded-full w-[50px] h-[50px] flex items-center justify-center text-lg">
+                <img class="w-8 h-8" src="assets/next.png" alt="">
+            </button>
+        </div>
+    </div>
+    <div class="max-w-6xl flex flex-row mx-auto mt-6 gap-6 ">
+        <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
+            style="background-color: rgba(126, 126, 126, 0.282);">
+            <div class="flex justify-start   ">
+                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
+
+
+            </div>
+            <div class="flex justify-start  gap-2 mt-6">
+                <div class="flex items-center">
+
+                    <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <p class="font-light font-sans text-[12px]">Resort World Genting, Pahang, Malaysia</p>
+                </div>
+            </div>
+            <div class="flex justify-start  gap-2 mt-4">
+                <div class="flex items-center">
+                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
+                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
+                        lectus. Scelerisque id bibendum velit cras. </p>
+                </div>
+            </div>
+            <div class="flex justify-start  gap-[2px] mt-4">
+                <div class="flex items-center">
+                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <p class="font-light font-sans mt-[2px] text-[12px]">(90) | Lorem Ipsum</p>
+                </div>
+
+            </div>
+
+        </div>
+        <div class=" basis-2/4 ">
+            <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
+                style="background-color: rgba(126, 126, 126, 0.282);">
+                <div class="flex justify-start  mx-auto ">
+                    <h1 class=" font-sans  text-2xl mt-4 ">Start from</h1>
+
+                </div>
+                <div class="flex justify-start  mx-auto ">
+                    <h1 class=" font-sans  text-3xl mt-4 ">RM 50.00</h1>
+                </div>
+
+                <div class=" font-sans flex items-center md:flex items-center space-x-5">
+                    <a routerLink="/Purchase"
+                        class="border-2 mt-6 border-darkgray-300 rounded font-sans text-white text-[20px]  px-5  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                        BOOK NOW</a>
+                </div>
+
+
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+
+                        <img class="w-[15px] h-[15px]" src="assets/whitedate.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[12px]">Available Now</p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+
+                        <img class="w-[15px] h-[15px]" src="assets/whitedate.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[12px]">Available Now</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
+        <div class="flex  max-h-fit backdrop-blur rounded" style="background-color: rgba(126, 126, 126, 0.282);">
+
+            <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
+                <div class="flex justify-start   ">
+                    <h1 class=" font-sans font-bold text-xl mt-4 ">Information</h1>
+
+
+                </div>
+                <div class="flex justify-start  gap-2 mt-6">
+                    <div class="flex items-center">
+
+                        <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[12px]">Resort World Genting, Pahang, Malaysia</p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit.
+                            Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
+                            Donec
+                            duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames
+                            sit
+                            lectus. Scelerisque id bibendum velit cras. </p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">Duration </p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">Ticket Entry</p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">Tour Guide</p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">First Aid</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class=" flex max-h-fit backdrop-blur rounded pb-4" style="background-color: rgba(126, 126, 126, 0.282);">
+            <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
+                <div class="flex justify-start   ">
+                    <h1 class=" font-sans font-bold text-xl mt-4 ">Testimonial</h1>
+
+                </div>
+                <div class="flex justify-start ">
+                    <p class="font-light font-sans text-[15px]">Overall reviews and ratings </p>
+
+                </div>
+
+                <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6">
+                    <div class="flex items-center">
+                        <a href=""
+                            class="border-2  border-darkgray-300 rounded-full px-2 py-1  font-sans text-white text-[20px]    transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                            4.4</a>
+                    </div>
+                    <div class="flex items-center flex-col">
+                        <div class="flex justify-start items-center gap-[2px]">
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+
+                        </div>
+                        <p class="font-light font-sans text-[15px] ">Ratings</p>
+                    </div>
+                </div>
+
+
+                <div class="flex justify-start  mt-4">
+
+                    <div class="flex justify-start  gap-2 mt-4">
+                        <div class="flex items-center">
+                            <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur
+                                adipiscing
+                                elit.
+                                Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
+                                Donec
+                                duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu
+                                fames
+                                sit
+                                lectus. Scelerisque id bibendum velit cras. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+
+                        <img class="w-[15px] h-[15px]" src="assets/whitedate.png" alt="">
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[12px]">Available Now</p>
+                    </div>
+                </div>
+                <br>
+                <div class="w-full border-b-2">
+
+                </div>
+                <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
+                    <div class="flex self-start justify-start">
+                        <a href=""
+                            class="border-2 bg-[url('assets/nandika.jpg')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                        </a>
+                    </div>
+
+                    <div class="flex  flex-col">
+                        <div class="flex justify-start gap-[2px]">
+                            <div class="flex items-center">
+                                <p class="font-light font-sans text-[15px] ">Nandika</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-start  gap-[2px] ">
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+
+                        </div>
+                        <div class="flex justify-start min-w-full gap-[2px] ">
+
+                            <div class="flex flex-col mt-4 border-2 rounded p-2">
+                                <p class="px-2  font-semibold font-sans text-[15px]">Nice </p>
+                                <p class="px-2  font-light font-sans text-[15px]">Lorem ipsum dolor sit amet,
+                                    consectetur
+                                    adipiscing
+                                    elit.
+                                    Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales
+                                    egestas.
+                                    Donec
+                                    duis lacus, odio velit eu eget ac tortor. . </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
+                    <div class="flex self-start justify-start">
+                        <a href=""
+                            class="border-2 bg-[url('assets/rin.jpg')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                        </a>
+                    </div>
+
+                    <div class="flex  flex-col">
+                        <div class="flex justify-start gap-[2px]">
+                            <div class="flex items-center">
+                                <p class="font-light font-sans text-[15px] ">Rin Hasegawa</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-start  gap-[2px] ">
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+
+                        </div>
+                        <div class="flex justify-start min-w-full gap-[2px] ">
+
+                            <div class="flex flex-col mt-4 border-2 rounded p-2">
+                                <p class="px-2  font-semibold font-sans text-[15px]">Nice </p>
+                                <p class="px-2  font-light font-sans text-[15px]">Lorem ipsum dolor sit amet,
+                                    consectetur
+                                    adipiscing
+                                    elit.
+                                    Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales
+                                    egestas.
+                                    Donec
+                                    duis lacus, odio velit eu eget ac tortor. . </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
