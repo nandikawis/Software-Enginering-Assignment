@@ -22,6 +22,9 @@ module.exports = {
         md: '768px',
         lg: '1024px',
         xl: '1440px',
+        'side': { 'max': '767px' },
+        'sides': { 'min': '767px' },
+        'reslp': { 'max': '1025px' }
       },
     },
   },
