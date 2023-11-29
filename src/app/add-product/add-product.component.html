@@ -1,68 +1,32 @@
-<section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 py-10">
-    <div class="max-w-6xl  ">
-        <h1 class=" text-xl font-semibold ">Product Detail</h1>
-
-    </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-        <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
-            style="background-color: rgba(126, 126, 126, 0.282);">
-            <div class="flex justify-start   ">
-                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
-
-
-            </div>
-            <div class="flex justify-start  gap-2 mt-6">
-                <div class="flex items-center">
-
-                    <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">Resort World Genting, Pahang, Malaysia</p>
-                </div>
-            </div>
-            <div class="flex justify-start  gap-2 mt-4">
-                <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
-                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
-                        lectus. Scelerisque id bibendum velit cras. </p>
-                </div>
-            </div>
-            <div class="flex justify-start  gap-[2px] mt-4">
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <p class="font-light font-sans mt-[2px] text-[12px]">(90) | Lorem Ipsum</p>
+<section class="max-w-6xl mx-auto text-white z-0 bg-cover "
+    style="background-image: url(assets/abstract-envelope.svg)   ;">
+    <div class="flex-col w-[25rem] sides:w-[40rem] mx-auto   bg-darkgray">
+        <div class="min-w-4xl basis-2/3  max-w-4xl mx-auto  px-5 py-10 bg-white rounded-md shadow-lg border-2 mt-8 "
+            style="background-color: rgba(109, 109, 109, 0.233);">
+            <h2 class="text-2xl font-semibold font-sans mb-4">Add New Product</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="merchantName" class="block  text-sm font-semibold mb-2">Product
+                        Name</label>
+                    <input type="text" id="productName" name="productName" required
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300  text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter product name">
                 </div>
 
-            </div>
+                <div class="mb-4">
+                    <label for="productTyper" class="block  text-sm font-semibold mb-2">Product Type</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" required
+                        class="shadow-sm  bg-transparent border-b-2 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter product type">
+                </div>
 
-        </div>
-        <div class=" basis-2/4 ">
-            <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
-                style="background-color: rgba(126, 126, 126, 0.282);">
-
-                <h1 class=" text-xl font-semibold  mb-6">Edit Product</h1>
-                <div class="justify-start mb-4">
+                <div class="mb-4">
                     <label for="productPrice" class="block  text-sm font-semibold mb-2">Price</label>
                     <input type="price" id="price" name="price" required
                         class="shadow-sm  bg-transparent border-b-2 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         placeholder="Enter price">
                 </div>
-                <div class="justify-start flex "></div>
+
                 <div class="mb-4">
                     <label for="Enter Date" class="block  text-sm font-semibold mb-2">Enter date
                     </label>
@@ -86,23 +50,14 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <button routerLink="/Product-Manage" type="save"
+                    <button type="submit"
                         class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                        Save
+                        Submit
                     </button>
                 </div>
-            </div>
 
+            </form>
         </div>
-
-    </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-        <div class="flex  sides:w-[48rem] max-h-fit backdrop-blur rounded  "
-            style="background-color: rgba(126, 126, 126, 0.282);">
-
-        </div>
-
-
 
     </div>
 </section>
