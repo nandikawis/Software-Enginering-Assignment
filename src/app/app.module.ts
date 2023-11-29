@@ -11,6 +11,7 @@ import { MerchantRegisterComponent } from './merchant-register/merchant-register
 import { ManageMerchantComponent } from './manage-merchant/manage-merchant.component';
 import { MerchantAccountComponent } from './merchant-account/merchant-account.component';
 import { ProductManagerComponent } from './product-manager/product-manager.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ProductManagerComponent } from './product-manager/product-manager.compo
     MerchantRegisterComponent,
     ManageMerchantComponent,
     MerchantAccountComponent,
-    ProductManagerComponent
+    ProductManagerComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
