@@ -1,0 +1,63 @@
+<section class="max-w-6xl mx-auto text-white z-0 bg-cover "
+    style="background-image: url(assets/abstract-envelope.svg)   ;">
+    <div class="flex-col w-[25rem] sides:w-[40rem] mx-auto   bg-darkgray">
+        <div class="min-w-4xl basis-2/3  max-w-4xl mx-auto  px-5 py-10 bg-white rounded-md shadow-lg border-2 mt-8 "
+            style="background-color: rgba(109, 109, 109, 0.233);">
+            <h2 class="text-2xl font-semibold font-sans mb-4">Add New Product</h2>
+            <form>
+                <div class="mb-4">
+                    <label for="merchantName" class="block  text-sm font-semibold mb-2">Product
+                        Name</label>
+                    <input type="text" id="productName" name="productName" required
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300  text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter product name">
+                </div>
+
+                <div class="mb-4">
+                    <label for="productTyper" class="block  text-sm font-semibold mb-2">Product Type</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" required
+                        class="shadow-sm  bg-transparent border-b-2 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter product type">
+                </div>
+
+                <div class="mb-4">
+                    <label for="productPrice" class="block  text-sm font-semibold mb-2">Price</label>
+                    <input type="price" id="price" name="price" required
+                        class="shadow-sm  bg-transparent border-b-2 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter price">
+                </div>
+
+                <div class="mb-4">
+                    <label for="Enter Date" class="block  text-sm font-semibold mb-2">Enter date
+                    </label>
+                    <input type="datetime" id="date" name="date" required
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter email address">
+                </div>
+
+                <div class="mb-4">
+                    <label for="productDescription" class="block  text-sm font-semibold mb-2">Product
+                        Description</label>
+                    <textarea id="companyDescription" name="companyDescription" required
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        rows="4" placeholder="Enter product description"></textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label for="fileInput" class="block  text-sm font-semibold mb-2">Upload Picture</label>
+                    <input type="file" id="fileInput" name="fileInput"
+                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white-50 file:text-darkgreen hover:file:bg-green-100">
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit"
+                        class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
+                        Submit
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</section>

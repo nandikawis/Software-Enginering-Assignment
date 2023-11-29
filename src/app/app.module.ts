@@ -8,6 +8,11 @@ import { MerchantPageComponent } from './merchant-page/merchant-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { MerchantRegisterComponent } from './merchant-register/merchant-register.component';
+import { ManageMerchantComponent } from './manage-merchant/manage-merchant.component';
+import { MerchantAccountComponent } from './merchant-account/merchant-account.component';
+import { ProductManagerComponent } from './product-manager/product-manager.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +21,12 @@ import { MerchantRegisterComponent } from './merchant-register/merchant-register
     MerchantPageComponent,
     LandingPageComponent,
     ProductPageComponent,
-    MerchantRegisterComponent
+    MerchantRegisterComponent,
+    ManageMerchantComponent,
+    MerchantAccountComponent,
+    ProductManagerComponent,
+    AddProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,

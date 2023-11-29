@@ -1,0 +1,62 @@
+<div class="max-w-6xl flex flex-col mx-auto  gap-6 ">
+    <div class="flex mx-auto max-w-full min-w-[19.1rem]  sides:min-w-[40rem] max-h-fit backdrop-blur rounded"
+        style="background-color: rgba(126, 126, 126, 0.282);">
+
+        <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
+            <div class="flex justify-start   ">
+                <h1 class=" font-sans font-bold text-xl mt-4 ">Account Setting</h1>
+
+
+            </div>
+            <div class="flex justify-start  gap-2 mt-6">
+                <div class="flex items-center">
+
+                    <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
+                </div>
+                <div class="flex items-center">
+                    <p class=" font-sans text-[15px]">Email Address</p>
+                </div>
+            </div>
+            <div class="flex justify-start  gap-2 mt-4">
+                <div class="flex items-center">
+                    <p class="font-light font-sans text-[15px]">{{ email }}</p>
+                </div>
+            </div>
+            <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
+                <div class="flex self-start justify-start">
+                    <a href=""
+                        class="bg-[url('assets/whitemap.png')] bg-cover border-darkgray-300  px-2 py-2  font-sans text-white w-[15px] h-[15px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                    </a>
+                </div>
+
+                <div class="flex  flex-col w-full">
+                    <div class="flex justify-start gap-[2px]">
+                        <div class="flex items-center ">
+                            <p class="font-light font-sans text-[15px] ">Password</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-start  ">
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
+                            class="shadow-sm bg-transparent border-b-2 border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5 mb-2"
+                            [value]="password" readonly>
+                        <button (click)="togglePasswordVisibility()"
+                            class="text-sm text-blue-500 hover:text-blue-700 focus:outline-none">
+                            {{ showPassword ? 'Hide' : 'Show' }}
+                        </button>
+                    </div>
+                    <div class="flex justify-start">
+                        <a href="/change-password" class="text-sm text-blue-500 hover:text-blue-700">
+                            Change Password
+                        </a>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
