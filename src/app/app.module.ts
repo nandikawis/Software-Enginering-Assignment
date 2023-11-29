@@ -7,6 +7,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { MerchantPageComponent } from './merchant-page/merchant-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+import { MerchantRegisterComponent } from './merchant-register/merchant-register.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { ProductPageComponent } from './product-page/product-page.component';
     HomePageComponent,
     MerchantPageComponent,
     LandingPageComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    MerchantRegisterComponent
   ],
   imports: [
     BrowserModule,
