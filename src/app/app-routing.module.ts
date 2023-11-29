@@ -8,6 +8,8 @@ import { MerchantRegisterComponent } from './merchant-register/merchant-register
 import { ManageMerchantComponent } from './manage-merchant/manage-merchant.component';
 import { MerchantAccountComponent } from './merchant-account/merchant-account.component';
 import { ProductManagerComponent } from './product-manager/product-manager.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 const routes: Routes = [
   {
@@ -25,7 +27,8 @@ const routes: Routes = [
           { path: 'Management', redirectTo: 'Account', pathMatch: 'full' },
           { path: 'Account', component: MerchantAccountComponent },
           { path: 'Product-Manage', component: ProductManagerComponent },
-
+          { path: 'Add-Product', component: AddProductComponent },
+          { path: 'Edit-Product', component: EditProductComponent }
         ]
       },
 
