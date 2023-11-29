@@ -4,6 +4,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
 import { MerchantPageComponent } from './merchant-page/merchant-page.component';
+import { MerchantRegisterComponent } from './merchant-register/merchant-register.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirect empty path to '/home'
@@ -12,7 +13,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'landing-page', pathMatch: 'full' },
       { path: '', component: LandingPageComponent },
       { path: 'Product', component: ProductPageComponent },
-      { path: 'Merchants', component: MerchantPageComponent }
+      { path: 'Merchants', component: MerchantPageComponent },
+      { path: 'Register', component: MerchantRegisterComponent }
     ]
   }, // HomePage route
   // Add more routes here as needed
