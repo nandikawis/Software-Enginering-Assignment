@@ -24,6 +24,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { OrderComponent } from './order/order.component';
+import { AddReviewComponent } from './add-review/add-review.component';
+import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
+import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
 
 
 @NgModule({
@@ -48,7 +51,10 @@ import { OrderComponent } from './order/order.component';
     DetailMerchantRegistrationComponent,
     AddProductComponent,
     EditProductComponent,
-    OrderComponent
+    OrderComponent,
+    AddReviewComponent,
+    ApprovedMerchantComponent,
+    ApprovedDetailComponent
   ],
   imports: [
     BrowserModule,

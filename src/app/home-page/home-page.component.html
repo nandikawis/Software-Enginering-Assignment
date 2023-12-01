@@ -1,6 +1,6 @@
 <body>
     <nav [ngClass]="navbarClass" class=" flex text-white fixed left-0 right-0 mx-auto z-10">
-        <div class="w-full border-b border-white shadow-lg mx-auto">
+        <div class="w-full border-b border-white shadow-lg mx-auto border-b-2">
             <div class=" max-w-6xl mx-auto flex justify-between ">
                 <div class="flex space-x-5 ">
                     <div>
@@ -22,6 +22,8 @@
                             class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Product</a>
                         <a routerLink="/Merchants"
                             class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Merchants</a>
+                        <a routerLink="/Officer"
+                            class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Officer</a>
                     </div>
                 </div>
                 <div class="flex space-x-5">
@@ -50,8 +52,8 @@
         <!-- Mobile menu (hidden on larger screens) -->
     </nav>
     <router-outlet></router-outlet>
-    <section class=" mx-auto text-white z-0 bg-cover " style="background-image: url(assets/abstract-envelope.svg)   ;">
-        <div class="max-w-6xl flex flex-row min-h-[70vh] mx-auto justify-between items-center ">
+    <section class=" mx-auto text-white z-0 bg-cover bg-black ">
+        <div class="max-w-6xl flex flex-row min-h-[70vh] mx-auto justify-between items-center border-b-2 ">
             <div class="flex-col border-2 border-transparent max-w-lg">
                 <div class="flex justify-start  mx-auto ">
                     <h1 class=" font-sans font-bold text-3xl mt-4 ">Why</h1>
@@ -77,7 +79,7 @@
             </div>
         </div>
     </section>
-    <section class=" mx-auto text-white z-0 bg-cover " style="background-image: url(assets/abstract-envelope.svg)   ;">
+    <section class=" mx-auto text-white z-0 bg-cover bg-black">
         <div class="max-w-6xl flex  flex-col md:flex-row min-h-[70vh] mx-auto  pt-10 ">
             <div class=" flex flex-col max-w-4xl  w-full">
                 <div class="flex justify-start ">

@@ -20,6 +20,9 @@ import { AnalyticReportComponent } from './analytic-report/analytic-report.compo
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { OrderComponent } from './order/order.component';
+import { AddReviewComponent } from './add-review/add-review.component';
+import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
+import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
 
 const routes: Routes = [
   {
@@ -35,6 +38,8 @@ const routes: Routes = [
       { path: 'Purchase', component: PurchaseProductComponent },
       { path: 'Payment', component: PaymentPageComponent },
       { path: 'Order', component: OrderComponent },
+      { path: 'Give-Review', component: AddReviewComponent },
+
       {
         path: '', component: ManageMerchantComponent, children: [
           { path: 'Management', redirectTo: 'Account', pathMatch: 'full' },
@@ -53,7 +58,11 @@ const routes: Routes = [
           { path: '', redirectTo: 'Officer-Management', pathMatch: 'full' },
           { path: 'Officer-Management', component: OfficerManagementComponent },
           { path: 'Review-Merchant', component: ReviewMerchantRegistrationComponent },
-          { path: 'Detail-Merchant', component: DetailMerchantRegistrationComponent }
+          { path: 'Detail-Merchant', component: DetailMerchantRegistrationComponent },
+          { path: 'Approved-Merchant', component: ApprovedMerchantComponent },
+          { path: 'Approved-Detail', component: ApprovedDetailComponent },
+          { path: 'Report', component: AnalyticReportComponent },
+          { path: 'Reviews', component: MerchantReviewsComponent }
         ]
       }
     ]

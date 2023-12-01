@@ -9,12 +9,13 @@ interface ProductData {
   authorName: string;
   date: string;
 }
+
 @Component({
-  selector: 'app-review-merchant-registration',
-  templateUrl: './review-merchant-registration.component.html',
-  styleUrls: ['./review-merchant-registration.component.css']
+  selector: 'app-approved-merchant',
+  templateUrl: './approved-merchant.component.html',
+  styleUrls: ['./approved-merchant.component.css']
 })
-export class ReviewMerchantRegistrationComponent {
+export class ApprovedMerchantComponent {
   cards: ProductData[] = [
     {
       image: 'https://source.unsplash.com/1000x600?promotion',
@@ -106,12 +107,5 @@ export class ReviewMerchantRegistrationComponent {
       this.currentPage--;
     }
   }
-
-  selectedStatus: string = 'Rejected'; // Default value
-
-  updateStatus(newStatus: string): void {
-    this.selectedStatus = newStatus;
-  }
-
 
 }

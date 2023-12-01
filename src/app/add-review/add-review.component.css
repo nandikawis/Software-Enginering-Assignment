@@ -1,0 +1,7 @@
+.rating-btn {
+    @apply px-2 py-1 border border-white bg-transparent text-white rounded cursor-pointer transition-colors;
+  }
+  
+  .rating-btn:hover {
+    @apply bg-green-500;
+  }
