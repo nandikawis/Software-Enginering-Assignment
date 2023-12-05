@@ -13,6 +13,7 @@ import { MerchantAccountComponent } from './merchant-account/merchant-account.co
 import { ProductManagerComponent } from './product-manager/product-manager.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EditProductComponent } from './edit-product/edit-product.component';
     MerchantAccountComponent,
     ProductManagerComponent,
     AddProductComponent,
-    EditProductComponent
+    EditProductComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,
