@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-review.component.css']
 })
 export class AddReviewComponent {
+  rating: number = 0;
+  selectedRating: number = 0;
 
+  setRating(value: number): void {
+    this.rating = value;
+    this.selectedRating = value;
+  }
 }
