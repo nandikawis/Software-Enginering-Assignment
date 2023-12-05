@@ -17,18 +17,18 @@ export class AnalyticReportComponent implements OnInit {
   monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
 
   ngOnInit() {
-    // Example chart data
+
     const series = [
       { name: 'Sales', data: [31, 40, 28, 51, 42, 109, 100] }
     ];
 
-    // Transforming data for each month
+
     this.chartData = this.monthLabels.map((_, i) => series.map(s => ({ name: s.name, data: s.data[i] })));
   }
   public chartSeries: ApexAxisChartSeries = [
     {
       name: 'series1',
-      data: [31, 40, 28, 51, 42, 109, 100] // Example data
+      data: [31, 40, 28, 51, 42, 109, 100]
     }
   ];
   public chartOptions: ApexChart = {
@@ -39,11 +39,16 @@ export class AnalyticReportComponent implements OnInit {
     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'] // Example categories
   };
   public chartYaxis: ApexYAxis = {
-    // Y-Axis configuration
+
   };
   public chartTitle: ApexTitleSubtitle = {
     text: 'Analytics Report'
   };
+  selectedStatus: string = 'Sales';
+
+  updateStatus(newStatus: string): void {
+    this.selectedStatus = newStatus;
+  }
 }
-// ...
+
 
