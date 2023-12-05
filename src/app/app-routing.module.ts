@@ -24,6 +24,7 @@ import { AddReviewComponent } from './add-review/add-review.component';
 import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
 import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
 
+
 const routes: Routes = [
   {
     path: '',

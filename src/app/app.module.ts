@@ -6,6 +6,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { MerchantPageComponent } from './merchant-page/merchant-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
+
 import { ManageMerchantComponent } from './manage-merchant/manage-merchant.component';
 import { MerchantAccountComponent } from './merchant-account/merchant-account.component';
 import { ProductManagerComponent } from './product-manager/product-manager.component';
@@ -27,7 +28,6 @@ import { OrderComponent } from './order/order.component';
 import { AddReviewComponent } from './add-review/add-review.component';
 import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
 import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
-
 
 @NgModule({
   declarations: [
@@ -59,7 +59,9 @@ import { ApprovedDetailComponent } from './approved-detail/approved-detail.compo
   imports: [
     BrowserModule,
     AppRoutingModule,
+
     BrowserAnimationsModule,
+
     NgApexchartsModule
   ],
   providers: [],
