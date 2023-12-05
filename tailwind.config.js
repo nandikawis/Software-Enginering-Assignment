@@ -10,6 +10,7 @@ module.exports = {
         lightteal: '#CEF2F2', // Custom name for light teal
         pink: '#E92A69',      // Custom name for pink
         darkgray: '#0D0D0D',  // Custom name for dark gray
+        darkgreen: '#1E2424'
       },
       backgroundColor: {
         'pink-light': '#E92A69' // And here you could add a variant with opacity

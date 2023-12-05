@@ -1,0 +1,52 @@
+<div class="flex flex-col mx-auto max-w-4xl gap-3 basis-3/4  items-center">
+    <ng-container *ngFor="let card of cardsForCurrentPage">
+        <div class="max-w-sm w-full sides:max-w-full sides:flex">
+            <div class="h-48 sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
+                [style.background-image]="'url(' + card.image + ')'" [attr.title]="card.title">
+            </div>
+            <div
+                class="border-r border-b border-l border-gray-400 sides:border-l-0 sides:border-t sides:border-gray-400 bg-white rounded-b sides:rounded-b-none sides:rounded-r p-4 flex flex-col justify-between leading-normal">
+                <div class="mb-8">
+                    <p class="text-sm text-gray-600 flex items-center">
+                        <!-- SVG for Members only -->
+
+                        {{card.member}}
+                    </p>
+                    <div class="text-gray-900 font-bold text-xl mb-2">{{card.heading}}</div>
+                    <p class="text-gray-700 text-base">{{card.content}}</p>
+                </div>
+                <div class="flex justify-between">
+
+                    <div class="text-sm">
+                        <p class="text-gray-900 leading-none">{{card.authorName}}</p>
+                        <p class="text-gray-600">{{card.date}}</p>
+                    </div>
+
+                    <a routerLink="/Officer/Approved-Detail" class=" border-2 mt-3.5 border-darkgray-300 rounded-full font-sans font-bold text-darkgray
+                        text-[15px] px-5 transition duration-300 ease-in-out hover:bg-darkgray hover:text-lightgray ">
+                        view</a>
+
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div class=" pagination-controls flex justify-center items-center space-x-2 my-4">
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+            (click)="goToPrevious()" [disabled]="currentPage === 1">
+            Prev
+        </button>
+
+        <button *ngFor="let page of [].constructor(totalPages); let i = index"
+            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" (click)="goToPage(i + 1)"
+            [class.bg-darkgray]="currentPage === i + 1">
+            {{ i + 1 }}
+        </button>
+
+        <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r" (click)="goToNext()"
+            [disabled]="currentPage === totalPages">
+            Next
+        </button>
+    </div>
+
+
+</div>
