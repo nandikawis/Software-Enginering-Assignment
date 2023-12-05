@@ -19,6 +19,7 @@ import { PaymentPageComponent } from './payment-page/payment-page.component';
 import { MerchantReviewsComponent } from './merchant-reviews/merchant-reviews.component';
 import { AnalyticReportComponent } from './analytic-report/analytic-report.component';
 import { OrderComponent } from './order/order.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { OrderComponent } from './order/order.component';
     PaymentPageComponent,
     MerchantReviewsComponent,
     AnalyticReportComponent,
-    OrderComponent
+    OrderComponent,
+    AddReviewComponent
   ],
   imports: [
     BrowserModule,
