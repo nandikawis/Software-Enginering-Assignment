@@ -1,20 +1,13 @@
-<section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 py-10">
-    <div class="max-w-6xl flex flex-row mx-auto mt-6 gap-6 ">
-        <div class="flex flex-col  justify-start px-4 py-4 max-h-fitbackdrop-blur rounded"
+<div *ngIf="merchant" class="flex flex-col mx-auto min-w-full gap-3 mx-auto side:justify-self-center items-center ">
+    <div class="w-full flex-row mx-auto  gap-6 ">
+        <div class="flex flex-col  justify-start px-4 py-4 backdrop-blur rounded"
             style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex justify-start   ">
-                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
-
-
+                <h1 class=" font-sans font-bold text-5xl mt-4 ">{{merchant.name}}</h1>
             </div>
-
-
             <div class="flex justify-start  gap-2 mt-6">
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
-                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
-                        lectus. Scelerisque id bibendum velit cras. </p>
+                    <p class="font-light font-sans text-[15px]">{{merchant.companyDescription}}</p>
                 </div>
             </div>
             <div class="flex justify-start  gap-2 mt-6">
@@ -26,7 +19,7 @@
                     <h1 class=" font-sans text-[15px] ">Email :</h1>
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">gentinggroup@gmail.com</p>
+                    <p class="font-light font-sans text-[12px]">{{ merchant.email }}</p>
                 </div>
             </div>
 
@@ -39,7 +32,7 @@
                     <h1 class=" font-sans text-[15px] ">Contact :</h1>
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">+61723891247</p>
+                    <p class="font-light font-sans text-[12px]">{{merchant.contactNumber}}</p>
                 </div>
             </div>
 
@@ -89,7 +82,7 @@
         <div class=" flex max-h-fit backdrop-blur rounded pb-4" style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex flex-row justify-between w-full px-4 py-4">
                 <div class="flex justify-start">
-                    <button routerLink="/Officer" type="submit"
+                    <button (click)="approveMerchant(merchant._id, merchant.email, merchant.name)" type="submit"
                         class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
                         Approve
                     </button>
@@ -105,7 +98,24 @@
             </div>
 
         </div>
+        <div *ngIf="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3 text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Approve Merhchant Success</h3>
+                    <div class="mt-2 px-7 py-3">
+                        <p class="text-sm text-gray-500">An email will be sent to the merchant about the login method
+                        </p>
+                    </div>
+                    <div class="items-center px-4 py-3">
+                        <button routerLink="/Officer" (click)="closeModal()"
+                            class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
     </div>
-</section>
+</div>

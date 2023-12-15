@@ -1,11 +1,11 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const app = express();
-
 const port = process.env.PORT || 3000;
 
-const uri = process.env.MONGODB_URI || "mongodb+srv://Cluster73858:3IAReS8ZwnE9MsEp@cluster73858.paxrtgk.mongodb.net/TourTiger?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 const merchantRoute = require('./routes/merchantRoute');
 
 // Creating a MongoDB client instance with connection string and options

@@ -23,7 +23,7 @@ import { OrderComponent } from './order/order.component';
 import { AddReviewComponent } from './add-review/add-review.component';
 import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
 import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
-
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -42,7 +42,9 @@ const routes: Routes = [
       { path: 'Give-Review', component: AddReviewComponent },
 
       {
-        path: '', component: ManageMerchantComponent, children: [
+        path: '', component: ManageMerchantComponent,
+        canActivate: [authGuard],
+        children: [
           { path: 'Management', redirectTo: 'Account', pathMatch: 'full' },
           { path: 'Account', component: MerchantAccountComponent },
           { path: 'Product-Manage', component: ProductManagerComponent },
@@ -59,7 +61,7 @@ const routes: Routes = [
           { path: '', redirectTo: 'Officer-Management', pathMatch: 'full' },
           { path: 'Officer-Management', component: OfficerManagementComponent },
           { path: 'Review-Merchant', component: ReviewMerchantRegistrationComponent },
-          { path: 'Detail-Merchant', component: DetailMerchantRegistrationComponent },
+          { path: 'Detail-Merchant/:id', component: DetailMerchantRegistrationComponent },
           { path: 'Approved-Merchant', component: ApprovedMerchantComponent },
           { path: 'Approved-Detail', component: ApprovedDetailComponent },
           { path: 'Report', component: AnalyticReportComponent },

@@ -30,6 +30,7 @@ import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant
 import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,

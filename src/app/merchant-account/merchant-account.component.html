@@ -1,4 +1,4 @@
-<div class="max-w-6xl flex flex-col mx-auto  gap-6 ">
+<div *ngIf="merchant" class="max-w-6xl flex flex-col mx-auto  gap-6 ">
     <div class="flex mx-auto max-w-full min-w-[19.1rem]  sides:min-w-[40rem] max-h-fit backdrop-blur rounded"
         style="background-color: rgba(126, 126, 126, 0.282);">
 
@@ -19,7 +19,7 @@
             </div>
             <div class="flex justify-start  gap-2 mt-4">
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">{{ email }}</p>
+                    <p class="font-light font-sans text-[15px]">{{ merchant.email }}</p>
                 </div>
             </div>
             <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
