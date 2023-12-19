@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class MerchantPageComponent {
   showModal: boolean = false;
   loginForm: FormGroup;
+  merchant: any;
 
   constructor(
     private renderer: Renderer2,
@@ -42,8 +43,23 @@ export class MerchantPageComponent {
       this.merchantService.login(this.loginForm.value.email, this.loginForm.value.password)
         .subscribe({
           next: (response) => {
-            sessionStorage.setItem('token', response.token);
-            this.router.navigate(['/management']); // Navigate to the protected route
+            this.merchantService.getMerchantByEmail(this.loginForm.value.email).subscribe({
+              next: (data: any) => {
+                this.merchant = data;
+                sessionStorage.setItem('merchantId', this.merchant.merchantId);
+                sessionStorage.setItem('email', this.loginForm.value.email);
+                sessionStorage.setItem('token', response.token);
+                const a = sessionStorage.getItem('merchantId');
+                console.log('Retrive Merchant ID', a);
+                this.router.navigate(['/Management']); // Navigate to the protected route
+              },
+              error: (error: any) => {
+                console.error('Error fetching merchant:', error);
+              }
+            })
+            const a = sessionStorage.getItem('merchantId');
+            console.log('Retrive Merchant ID', a);
+            this.router.navigate(['/Management']); // Navigate to the protected route
           },
           error: (error) => {
             console.error('Login failed', error);

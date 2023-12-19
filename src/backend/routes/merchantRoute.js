@@ -3,6 +3,8 @@ const router = express.Router();
 const Merchant = require('../models/Merchant');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 // POST route to add a new merchant
 
 router.get('/check-email', async (req, res) => {
@@ -14,6 +16,18 @@ router.get('/check-email', async (req, res) => {
         res.json({ emailAvailable: true });
     }
 });
+
+router.get('/check-oldpassword', async (req, res) => {
+    const { newpassword, oldpassword } = req.query;
+
+    const isMatch = await bcrypt.compare(newpassword, oldpassword);
+    if (isMatch) {
+        res.json({ passwordMatch: false });
+    } else {
+        res.json({ passwordMatch: true });
+    }
+});
+
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -37,7 +51,7 @@ router.post('/login', async (req, res) => {
         console.log('Credentials match');
         // Generate a JWT token
         const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+        console.log('Generated JWT Token:', token);
         res.json({ token }); // Send the token to the client
     } catch (error) {
         console.error('Error during login:', error);
@@ -67,6 +81,54 @@ router.put('/approve', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+router.get('/email', async (req, res) => {
+    try {
+        const { email } = req.query;
+        const merchant = await Merchant.findOne({ email: email });
+        if (!merchant) return res.status(404).json({ message: 'Merchant not found' });
+        res.json(merchant);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.get('/merchantId', async (req, res) => {
+    try {
+        const { merchantId } = req.query;
+        const merchant = await Merchant.findOne({ merchantId: merchantId });
+        if (!merchant) return res.status(404).json({ message: 'Merchant not found' });
+        res.json(merchant);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.put('/changePassword', async (req, res) => {
+    try {
+        const { email, newpassword } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ message: 'Email is required' });
+        }
+        const thepassword = bcrypt.hashSync(newpassword, saltRounds);
+        const updatedMerchant = await Merchant.findOneAndUpdate(
+            { email: email },
+            { $set: { password: thepassword } },
+            { new: true } // Returns the updated document
+        );
+
+
+        if (!updatedMerchant) {
+            return res.status(404).json({ message: 'Merchant not found' });
+        }
+
+        res.json(updatedMerchant);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 
 router.post('/', async (req, res) => {
     console.log('Received data:', req.body);
@@ -105,8 +167,6 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
-
 
 
 // PUT route to update a merchant's details
