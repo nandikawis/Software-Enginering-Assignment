@@ -1,6 +1,4 @@
-<div class="flex flex-col mx-auto max-w-4xl gap-3 basis-3/4  items-center">
-
-
+<div class="flex flex-col  min-w-full gap-3 mx-auto side:justify-self-center items-center ">
     <div class="flex self-start mt-4">
         <button routerLink="/Add-Product" type="Add"
             class="bg-darkgray text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
@@ -8,31 +6,31 @@
         </button>
     </div>
     <ng-container *ngFor="let card of cardsForCurrentPage">
-        <div class="max-w-sm w-full sides:max-w-full sides:flex">
+        <div class="max-w-sm w-full bg-blue-500 sides:max-w-full sides:flex">
             <div class="h-48 sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
-                [style.background-image]="'url(' + card.image + ')'" [attr.title]="card.title">
+                style="background-image: url('https://source.unsplash.com/1000x600?promotion');">
             </div>
             <div
-                class="border-r border-b border-l border-gray-400 sides:border-l-0 sides:border-t sides:border-gray-400 bg-white rounded-b sides:rounded-b-none sides:rounded-r p-4 flex flex-col justify-between leading-normal">
+                class="border-r border-b border-l w-full border-gray-400 sides:border-l-0 sides:border-t sides:border-gray-400 bg-white rounded-b sides:rounded-b-none sides:rounded-r p-4 flex flex-col justify-between leading-normal">
                 <div class="mb-8">
                     <p class="text-sm text-gray-600 flex items-center">
                         <!-- SVG for Members only -->
-
-                        {{card.member}}
+                        {{card.category}}
                     </p>
-                    <div class="text-gray-900 font-bold text-xl mb-2">{{card.heading}}</div>
-                    <p class="text-gray-700 text-base">{{card.content}}</p>
+                    <div class="text-gray-900 font-bold text-xl mb-2">{{card.productName}}</div>
+                    <p class="text-gray-700 text-base">{{card.productDescription}}</p>
                 </div>
                 <div class="flex justify-between">
 
                     <div class="text-sm">
-                        <p class="text-gray-900 leading-none">{{card.authorName}}</p>
-                        <p class="text-gray-600">{{card.date}}</p>
+                        <p class="text-gray-900 leading-none">{{card.price}}</p>
+                        <p class="text-gray-600">{{card.averageRating}}</p>
                     </div>
 
-                    <a routerLink="/Edit-Product" class=" font-sans flex justify-end md:flex  space-x-5 "
+                    <button (click)="navigateToEdit(card.productId)"
+                        class=" font-sans flex justify-end md:flex  space-x-5 "
                         class="border-2 mt-3.5 border-darkgray rounded-full font-sans font-bold text-darkgray text-[15px]  px-5  transition duration-300 ease-in-out hover:bg-darkgray hover:text-lightgray ">
-                        edit</a>
+                        edit</button>
                     <a routerLink="" class=" font-sans flex justify-end md:flex  space-x-5 "
                         class="border-2 mt-3.5 border-darkgray rounded-full font-sans font-bold text-darkgray text-[15px]  px-5  transition duration-300 ease-in-out hover:bg-red hover:text-lightgray ">
                         delete</a>

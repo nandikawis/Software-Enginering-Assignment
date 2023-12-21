@@ -69,5 +69,4 @@ export class ReviewMerchantRegistrationComponent {
     this.router.navigate(['/Officer/Detail-Merchant', merchantId]);
   }
 
-
 }

@@ -51,7 +51,7 @@ const routes: Routes = [
           { path: 'Reviews', component: MerchantReviewsComponent },
           { path: 'Report', component: AnalyticReportComponent },
           { path: 'Add-Product', component: AddProductComponent },
-          { path: 'Edit-Product', component: EditProductComponent }
+          { path: 'Edit-Product/:productId', component: EditProductComponent }
         ]
       },
       {

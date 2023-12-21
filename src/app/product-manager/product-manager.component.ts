@@ -1,92 +1,43 @@
 import { Component } from '@angular/core';
-interface ProductData {
-  image: string;
-  title: string;
-  member: string;
-  content: string;
-  heading: string;
-  authorImage: string;
-  authorName: string;
-  date: string;
-}
+import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-product-manager',
   templateUrl: './product-manager.component.html',
   styleUrls: ['./product-manager.component.css']
 })
 export class ProductManagerComponent {
-  cards: ProductData[] = [
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-
-  ];
+  cards: any[] = [];
   public pageSize = 5;
   public currentPage = 1;
   public totalPages: number;
 
-  constructor() {
+  constructor(private productService: ProductService, private router: Router) {
     this.totalPages = Math.ceil(this.cards.length / this.pageSize);
   }
 
-  public get cardsForCurrentPage(): ProductData[] {
+  ngOnInit(): void {
+    const merchantId = sessionStorage.getItem('merchantId');
+    console.log('merchantId', merchantId);
+    if (merchantId) {
+      this.productService.getProductsByMerchantId(merchantId).subscribe({
+        next: (res) => {
+          this.cards = res;
+          this.totalPages = Math.ceil(this.cards.length / this.pageSize);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+        complete: () => {
+          // Optional: Any cleanup or final actions when the Observable completes
+        }
+      })
+    }
+  }
+
+
+  public get cardsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.cards.slice(startIndex, startIndex + this.pageSize);
   }
@@ -106,4 +57,13 @@ export class ProductManagerComponent {
       this.currentPage--;
     }
   }
+
+  navigateToEdit(productId: string): void {
+    if (!productId) {
+      console.error('Merchant ID is undefined or null');
+      return;
+    }
+    this.router.navigate(['/Edit-Product', productId]);
+  }
+
 }

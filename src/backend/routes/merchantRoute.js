@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const saltRounds = 10;
-// POST route to add a new merchant
+
 
 router.get('/check-email', async (req, res) => {
     const { email } = req.query;
@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
 
         console.log('Credentials match');
         // Generate a JWT token
-        const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '5m' });
         console.log('Generated JWT Token:', token);
         res.json({ token }); // Send the token to the client
     } catch (error) {

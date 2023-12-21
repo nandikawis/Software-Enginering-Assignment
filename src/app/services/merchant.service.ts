@@ -7,7 +7,7 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/fo
   providedIn: 'root'
 })
 export class MerchantService {
-  private baseUrl = 'http://localhost:3000/merchants'; // Adjust based on your server
+  private baseUrl = 'http://localhost:3000/merchants';
 
   constructor(private http: HttpClient) { }
 
@@ -76,6 +76,8 @@ export class MerchantService {
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/login`, { email, password });
   }
+
+
 
 
 }

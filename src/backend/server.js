@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000;
 const uri = process.env.MONGODB_URI;
 const merchantRoute = require('./routes/merchantRoute');
 
+const productRoute = require('./routes/productRoute');
+
 // Creating a MongoDB client instance with connection string and options
 mongoose.connect(uri)
     .then(() => console.log("Connected successfully to MongoDB Atlas"))
@@ -25,13 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Asynchronous function to establish connection to MongoDB
 
-
-
 //Routes
 app.use('/merchants', merchantRoute);
 
-
-
+app.use('/products', productRoute);
 
 // Starting the Express server
 app.listen(port, () => {
