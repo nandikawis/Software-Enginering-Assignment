@@ -1,8 +1,10 @@
 <section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0 pt-[5.5rem] px-10 py-10">
     <div class="max-w-6xl self-center w-full ">
         <h1 class=" text-xl font-semibold ">Order List</h1>
-
-        <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
+        <div *ngIf="cardsForCurrentPage.length == 0" class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
+            <h1 class=" text-xl font-semibold ">You have no order receipt yet</h1>
+        </div>
+        <ng-container *ngFor="let card of cardsForCurrentPage" class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
             <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
                 style="background-color: rgba(126, 126, 126, 0.282);">
 
@@ -10,13 +12,14 @@
                     <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
                         style="background-color: rgba(126, 126, 126, 0.282);">
 
-                        <h1 class=" text-xl font-semibold  mb-6">Order ID: TC12344</h1>
+                        <h1 class=" text-xl font-semibold  mb-6">Transaction ID: {{card.paypalTransactionId}}</h1>
+                        <h1 class=" text-xl font-semibold  mb-6">Order ID : {{card.orderId}}</h1>
                         <div class="justify-start mb-4">
-                            <label for="productPrice" class="block  text-sm font-semibold mb-2">Attraction</label>
+                            <label for="Product" class="block  text-sm font-semibold mb-2">{{card.productName}}</label>
                         </div>
                         <div class="justify-start flex "></div>
                         <div class="mb-4">
-                            <label for="Enter Date" class="block  text-sm font-semibold mb-2">25/12/2023
+                            <label for="Price" class="block  text-sm font-semibold mb-2">USD {{card.price}}
                             </label>
                             <div class="border-b-2 w-[10rem]">
 
@@ -24,120 +27,84 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="productDescription" class="block  text-sm font-semibold mb-2">Scooter
-                                Rider</label>
+                            <label for="productDescription"
+                                class="block  text-sm font-semibold mb-2">{{card.status}}</label>
 
                         </div>
 
 
+
+
                         <div class="flex justify-end gap-3">
-                            <button routerLink="/Give-Review" type="save"
+                            <button (click)="navigateToReview(card.paypalTransactionId)"
                                 class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
                                 Review
                             </button>
-                            <button routerLink="/Product-Manage" type="save"
+                            <button (click)="openReceipt()"
                                 class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                                Download Reciept
+                                View Reciept
                             </button>
                         </div>
 
                     </div>
 
                 </div>
+                <div *ngIf="showReceipt"
+                    class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
 
-            </div>
-        </div>
-        <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-            <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
-                style="background-color: rgba(126, 126, 126, 0.282);">
+                    <div #receiptContent *ngIf="showReceipt"
+                        class="relative  mx-auto p-10 border-2 border-white w-full max-w-xl shadow-lg rounded-md bg-darkgray">
+                        <div class="mt-3 text-center">
+                            <h3 class="text-2xl text-white font-semibold font-sans mb-4">Purchase Receipt</h3>
 
-                <div class=" basis-2/4 ">
-                    <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
-                        style="background-color: rgba(126, 126, 126, 0.282);">
-
-                        <h1 class=" text-xl font-semibold  mb-6">Order ID: TC125478</h1>
-                        <div class="justify-start mb-4">
-                            <label for="productPrice" class="block  text-sm font-semibold mb-2">Attraction</label>
-                        </div>
-                        <div class="justify-start flex "></div>
-                        <div class="mb-4">
-                            <label for="Enter Date" class="block  text-sm font-semibold mb-2">25/12/2023
-                            </label>
-                            <div class="border-b-2 w-[10rem]">
-
+                            <!-- Receipt Content with Border -->
+                            <div class="text-left text-white border-2 border-white p-5">
+                                <div class="mb-4 border-b border-white">
+                                    <span class="font-semibold  ">Transaction ID:</span>
+                                    {{card.paypalTransactionId}}
+                                </div>
+                                <div class="mb-4 border-b border-white">
+                                    <span class="font-semibold ">Product Name:</span> {{ card.productName }}
+                                </div>
+                                <div class="mb-4 border-b border-white">
+                                    <span class="font-semibold ">Price:</span> {{ card.price }}
+                                </div>
+                                <div class="mb-4 border-b border-white">
+                                    <span class="font-semibold ">Full Name:</span> {{card.fullName }}
+                                </div>
+                                <div class="mb-4 border-b border-white">
+                                    <span class="font-semibold ">Email:</span> {{ card.email }}
+                                </div>
+                                <div class="mb-4 border-b border-white">
+                                    <span class="font-semibold text-green-500">Status:</span> {{ card.status
+                                    }}
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-4">
-                            <label for="productDescription" class="block  text-sm font-semibold mb-2">Scooter
-                                Rider</label>
-
-                        </div>
-
-
-
-                        <div class="flex justify-end gap-3">
-                            <button routerLink="/Give-Review" type="save"
-                                class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                                Review
-                            </button>
-
-                            <button routerLink="/Product-Manage" type="save"
-                                class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                                Download Reciept
-                            </button>
+                            <!-- Close Modal Button -->
                         </div>
                     </div>
+                    <div *ngIf="showReceipt"
+                        class="relative  mx-auto p-10 border-2 border-white w-full max-w-xl shadow-lg rounded-md bg-darkgray">
+                        <div class="flex justify-between items-center border-2 p-3">
 
+                            <button (click)="closeReceipt()"
+                                class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                                Close
+                            </button>
+
+                            <button (click)="downloadReceiptAsPDF()"
+                                class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
+                                Download Receipt
+                            </button>
+
+                        </div>
+                        <!-- ... rest of your modal content ... -->
+                    </div>
                 </div>
 
             </div>
-        </div>
-        <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-            <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
-                style="background-color: rgba(126, 126, 126, 0.282);">
+        </ng-container>
 
-                <div class=" basis-2/4 ">
-                    <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
-                        style="background-color: rgba(126, 126, 126, 0.282);">
-
-                        <h1 class=" text-xl font-semibold  mb-6">Order ID: TC12344</h1>
-                        <div class="justify-start mb-4">
-                            <label for="productPrice" class="block  text-sm font-semibold mb-2">Attraction</label>
-                        </div>
-                        <div class="justify-start flex "></div>
-                        <div class="mb-4">
-                            <label for="Enter Date" class="block  text-sm font-semibold mb-2">25/12/2023
-                            </label>
-                            <div class="border-b-2 w-[10rem]">
-
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="productDescription" class="block  text-sm font-semibold mb-2">Scooter
-                                Rider</label>
-
-                        </div>
-
-
-
-                        <div class="flex justify-end gap-3">
-                            <button routerLink="/Give-Review" type="save"
-                                class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                                Review
-                            </button>
-
-                            <button routerLink="/Product-Manage" type="save"
-                                class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                                Download Reciept
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
     </div>
 </section>

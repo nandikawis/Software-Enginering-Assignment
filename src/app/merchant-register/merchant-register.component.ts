@@ -10,6 +10,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class MerchantRegisterComponent {
   merchantForm: FormGroup;
+  showModal = false;
 
   constructor(private merchantService: MerchantService) {
     this.merchantForm = new FormGroup({
@@ -18,7 +19,7 @@ export class MerchantRegisterComponent {
       email: new FormControl('', {
         validators: [Validators.required, Validators.email],
         asyncValidators: [this.merchantService.validateEmailNotTaken()],
-        updateOn: 'blur' // This will trigger the validation when the field loses focus
+        updateOn: 'blur'
       }),
       companyDescription: new FormControl('', [Validators.required])
     });
@@ -30,16 +31,23 @@ export class MerchantRegisterComponent {
       this.merchantService.registerMerchant(this.merchantForm.value).subscribe({
         next: (res) => {
           console.log('Merchant registered:', res);
-          // Additional success handling
           this.merchantForm.reset();
         },
         error: (err) => {
           console.error('Error during registration:', err);
-          // More detailed error handling
         }
       });
     } else {
       console.error('Form is invalid:', this.merchantForm.errors);
     }
   }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
 }

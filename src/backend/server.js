@@ -6,9 +6,18 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const uri = process.env.MONGODB_URI;
+
+const customerRoute = require('./routes/customerRoute');
+
 const merchantRoute = require('./routes/merchantRoute');
 
 const productRoute = require('./routes/productRoute');
+
+const purchaseRoute = require('./routes/purchaseRoute');
+
+const receiptRoute = require('./routes/receiptRoute');
+
+const reviewRoute = require('./routes/reviewRoute');
 
 // Creating a MongoDB client instance with connection string and options
 mongoose.connect(uri)
@@ -28,9 +37,18 @@ app.use(express.urlencoded({ extended: true }));
 // Asynchronous function to establish connection to MongoDB
 
 //Routes
+app.use('/customers', customerRoute);
+
 app.use('/merchants', merchantRoute);
 
 app.use('/products', productRoute);
+
+app.use('/purchases', purchaseRoute);
+
+app.use('/receipts', receiptRoute);
+
+app.use('/reviews', reviewRoute);
+
 
 // Starting the Express server
 app.listen(port, () => {

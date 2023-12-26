@@ -41,6 +41,10 @@ export class MerchantService {
     return this.http.put(`${this.baseUrl}/changePassword`, { email, newpassword });
   }
 
+  deleteMerchantById(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
 
   validatePassword(oldPassword: string): AsyncValidatorFn {
     return (control: AbstractControl): Observable<ValidationErrors | null> => {

@@ -1,10 +1,8 @@
-
-<section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 py-10">
+<section class="flex-1  bg-black text-white max-h-fit z-0  px-10 py-10">
     <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-        <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
-            style="background-color: rgba(126, 126, 126, 0.282);">
+        <div *ngIf="product" class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded">
             <div class="flex justify-start   ">
-                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
+                <h1 class=" font-sans font-bold text-5xl mt-4 ">{{product.productName}}</h1>
 
 
             </div>
@@ -19,10 +17,7 @@
             </div>
             <div class="flex justify-start  gap-2 mt-4">
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
-                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
-                        lectus. Scelerisque id bibendum velit cras. </p>
+                    <p class="font-light font-sans text-[15px]">{{product.productDescription}}</p>
                 </div>
             </div>
             <div class="flex justify-start  gap-[2px] mt-4">
@@ -42,17 +37,15 @@
                     <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans mt-[2px] text-[12px]">(90) | Lorem Ipsum</p>
+                    <p class="font-light font-sans mt-[2px] text-[12px]">({{product.numberOfRatings}}) | Reviews</p>
                 </div>
 
             </div>
 
         </div>
-        <div class=" basis-2/4 ">
-            <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
-                style="background-color: rgba(126, 126, 126, 0.282);">
-
-                <h1 class=" text-xl font-semibold  mb-6">Give us a review</h1>
+        <div class=" basis-2/4 border-t ">
+            <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded" [formGroup]="reviewForm">
+                <h1 class="text-xl font-semibold mb-6">Give us a review</h1>
                 <label class="block text-sm font-semibold mb-4">Rating</label>
                 <div class="flex space-x-2">
                     <button (click)="setRating(5)" [style.background-color]="selectedRating === 5 ? 'green' : ''"
@@ -74,37 +67,39 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="productDescription" class="block  text-sm font-semibold mb-2">
-                        Description</label>
-                    <textarea id="companyDescription" name="companyDescription" required
-                        class="shadow-sm bg-transparent border-b-2 border-gray-300 text-gray-900 text-sm  focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                    <label for="description" class="block text-sm font-semibold mb-2">Description</label>
+                    <textarea id="description" formControlName="description"
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         rows="4" placeholder="Enter product description"></textarea>
                 </div>
-
-                <div class="mb-6">
-                    <label for="fileInput" class="block  text-sm font-semibold mb-2">Upload Picture</label>
-                    <input type="file" id="fileInput" name="fileInput"
-                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-white-50 file:text-darkgreen hover:file:bg-green-100">
-                </div>
-
                 <div class="flex justify-end">
-                    <button routerLink="/Order" type="save"
-                        class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                        Save
-                    </button>
+                    <button type="button" (click)="confirmation()"
+                        class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">Save</button>
                 </div>
             </div>
 
         </div>
 
     </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-        <div class="flex  sides:w-[48rem] max-h-fit backdrop-blur rounded  "
-            style="background-color: rgba(126, 126, 126, 0.282);">
-
+    <div *ngIf="confirmReview" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Confirm Review</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">Are you sure you submit the review for this product?</p>
+                </div>
+                <div class="flex items-center justify-center space-x-4 py-3">
+                    <button (click)="addReview()"
+                        class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                        Continue
+                    </button>
+                    <button (click)="cancel()"
+                        class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300">
+                        Cancel
+                    </button>
+                </div>
+            </div>
         </div>
-
-
-
     </div>
+
 </section>
