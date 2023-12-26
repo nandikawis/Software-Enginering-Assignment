@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Purchase = require('../models/Purchase');
 
-
 router.get('/orderId', async (req, res) => {
     try {
         const { orderId } = req.query;
