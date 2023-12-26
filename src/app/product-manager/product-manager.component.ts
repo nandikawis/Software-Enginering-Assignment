@@ -30,7 +30,7 @@ export class ProductManagerComponent {
           console.log(err);
         },
         complete: () => {
-          // Optional: Any cleanup or final actions when the Observable completes
+
         }
       })
     }

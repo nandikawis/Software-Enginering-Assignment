@@ -29,6 +29,7 @@ import { AddReviewComponent } from './add-review/add-review.component';
 import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
 import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RegistercustomerComponent } from './registercustomer/registercustomer.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { HttpClientModule } from '@angular/common/http';
     OrderComponent,
     AddReviewComponent,
     ApprovedMerchantComponent,
-    ApprovedDetailComponent
+    ApprovedDetailComponent,
+    RegistercustomerComponent
   ],
   imports: [
     BrowserModule,

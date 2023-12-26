@@ -24,6 +24,8 @@ import { AddReviewComponent } from './add-review/add-review.component';
 import { ApprovedMerchantComponent } from './approved-merchant/approved-merchant.component';
 import { ApprovedDetailComponent } from './approved-detail/approved-detail.component';
 import { authGuard } from './auth.guard';
+import { RegistercustomerComponent } from './registercustomer/registercustomer.component';
+import { customerAuthGuard } from './guards/customer-auth.guard';
 
 const routes: Routes = [
   {
@@ -32,14 +34,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'landing-page', pathMatch: 'full' },  // Redirect to landing-page by default
       { path: 'landing-page', component: LandingPageComponent },
-      { path: 'Product', component: ProductPageComponent },
+      { path: 'Sign-Up', component: RegistercustomerComponent },
       { path: 'Merchants', component: MerchantPageComponent },
       { path: 'Register', component: MerchantRegisterComponent },
-      { path: 'Details', component: ProductDetailComponent },
-      { path: 'Purchase', component: PurchaseProductComponent },
-      { path: 'Payment', component: PaymentPageComponent },
-      { path: 'Order', component: OrderComponent },
-      { path: 'Give-Review', component: AddReviewComponent },
+      { path: 'Order/:customerId', component: OrderComponent },
+      { path: 'Give-Review/:paypalTransactionId', component: AddReviewComponent },
+      { path: 'Product', component: ProductPageComponent },
+      { path: 'Details/:productId', component: ProductDetailComponent },
+      { path: 'Purchase/:productId', component: PurchaseProductComponent, canActivate: [customerAuthGuard] },
+      { path: 'Payment/:orderId', component: PaymentPageComponent, canActivate: [customerAuthGuard] },
 
       {
         path: '', component: ManageMerchantComponent,

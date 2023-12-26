@@ -26,11 +26,57 @@
             </button>
         </div>
     </div>
-    <div class="max-w-6xl flex flex-row mx-auto mt-6 gap-6 ">
-        <div class="flex flex-col  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
+    <div *ngIf="showModal" class="fixed z-10  inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-darkgray">
+            <div class="mt-3 text-center">
+                <h3 class="text-2xl text-white font-semibold font-sans mb-4">Login to Your Account</h3>
+
+                <!-- Login Form -->
+                <form [formGroup]="loginForm" class="mt-8">
+                    <div class="mb-4 text-left">
+                        <label for="email" class="block text-sm text-white font-semibold mb-2">Email</label>
+                        <input type="email" id="email" formControlName="email"
+                            class="shadow-sm bg-transparent border-b-2 border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                            placeholder="Enter your email">
+                    </div>
+
+                    <div class="mb-4 text-left">
+                        <label for="password" class="block text-sm text-white font-semibold mb-2">Password</label>
+                        <input type="password" id="password" formControlName="password"
+                            class="shadow-sm bg-transparent border-b-2 border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                            placeholder="Enter your password">
+                    </div>
+
+                    <div class="flex items-center justify-center space-x-4 py-3">
+                        <button (click)="login() ; closeModal()"
+                            class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Sign Up Link -->
+                <div class="mt-2 px-7 py-3 text-sm text-gray-500">
+                    Don't have an account? <a (click)="closeModalToRegister()"
+                        class="text-blue-600 hover:text-blue-800">Sign
+                        up</a>
+                </div>
+
+                <!-- Close Modal Button -->
+                <div class="flex items-center justify-center space-x-4 py-3">
+                    <button (click)="closeModal()"
+                        class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="product" class="max-w-6xl w-full flex flex-row side:flex-col mx-auto mt-6 gap-6 ">
+        <div class="flex flex-col w-full  justify-start basis-3/4 px-4 py-4 max-h-fitbackdrop-blur rounded"
             style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex justify-start   ">
-                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
+                <h1 class=" font-sans font-bold text-5xl mt-4 ">{{product.productName}}</h1>
 
 
             </div>
@@ -45,13 +91,10 @@
             </div>
             <div class="flex justify-start  gap-2 mt-4">
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
-                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
-                        lectus. Scelerisque id bibendum velit cras. </p>
+                    <p class="font-light font-sans text-[15px]">{{product.productDescription}}</p>
                 </div>
             </div>
-            <div class="flex justify-start  gap-[2px] mt-4">
+            <div class="flex justify-start mt-4  gap-[2px] ">
                 <div class="flex items-center">
                     <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
                 </div>
@@ -75,20 +118,20 @@
 
         </div>
         <div class=" basis-2/4 ">
-            <div class="flex-col max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
+            <div class="flex-col w-full max-h-fit basis-2/4 px-4 py-4 backdrop-blur rounded"
                 style="background-color: rgba(126, 126, 126, 0.282);">
                 <div class="flex justify-start  mx-auto ">
                     <h1 class=" font-sans  text-2xl mt-4 ">Start from</h1>
 
                 </div>
                 <div class="flex justify-start  mx-auto ">
-                    <h1 class=" font-sans  text-3xl mt-4 ">RM 50.00</h1>
+                    <h1 class=" font-sans  text-3xl mt-4 ">RM{{product.price}}</h1>
                 </div>
 
                 <div class=" font-sans flex items-center md:flex items-center space-x-5">
-                    <a routerLink="/Purchase"
+                    <button (click)="checkLoggedIn(product.productId)"
                         class="border-2 mt-6 border-darkgray-300 rounded font-sans text-white text-[20px]  px-5  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
-                        BOOK NOW</a>
+                        BOOK NOW</button>
                 </div>
 
 

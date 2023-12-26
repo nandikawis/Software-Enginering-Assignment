@@ -62,7 +62,7 @@
                 <div class="justify-start mb-4">
                     <label for="productName" class="block text-sm font-semibold mb-2">Product name</label>
                     <input type="text" formControlName="productName"
-                        class="shadow-sm bg-transparent border-b-2 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        class="shadow-sm bg-transparent border-b-2  text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         placeholder="Enter product name">
                     <div *ngIf="editProductForm.get('productName')?.touched" class="text-red-600">
                         <div *ngIf="editProductForm.get('productName')?.errors?.['required']">Product name is required.
@@ -88,7 +88,7 @@
                 <div class="mb-4">
                     <label for="productDescription" class="block text-sm font-semibold mb-2">Product Description</label>
                     <textarea formControlName="productDescription"
-                        class="shadow-sm bg-transparent border-b-2 border-gray-300 text-gray-900 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300  text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                         rows="4" placeholder="Enter product description"></textarea>
                     <div *ngIf="editProductForm.get('productDescription')?.touched" class="text-red-600">
                         <div *ngIf="editProductForm.get('productDescription')?.errors?.['required']">Description is

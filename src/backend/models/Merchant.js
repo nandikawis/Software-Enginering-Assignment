@@ -8,7 +8,7 @@ const saltRounds = 10;
 const merchantSchema = new mongoose.Schema({
     merchantId: {
         type: String,
-        default: () => new mongoose.Types.ObjectId().toString() // Correct instantiation
+        default: () => new mongoose.Types.ObjectId().toString()
     },
     name: {
         type: String,
@@ -21,7 +21,7 @@ const merchantSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true // Ensure email is unique
+        unique: true
     },
     companyDescription: {
         type: String,
@@ -32,11 +32,11 @@ const merchantSchema = new mongoose.Schema({
         enum: ['pending', 'accepted', 'rejected'],
         default: 'pending'
     },
-    //document: String, // Need adjustment
     password: {
         type: String,
 
-    }
+    },
+
 });
 
 merchantSchema.methods.generateRandomPassword = function () {

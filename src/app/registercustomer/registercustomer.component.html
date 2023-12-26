@@ -1,0 +1,100 @@
+<section class=" mx-auto text-white z-0 bg-cover " style="background-image: url(assets/abstract-envelope.svg)   ;">
+    <div class="max-w-6xl mx-auto pt-[3.5rem] pb-8 bg-darkgray">
+        <div class="min-w-4xl max-w-4xl mx-auto  px-5 py-10 bg-white rounded-md shadow-lg border-2 mt-8 "
+            style="background-color: rgba(109, 109, 109, 0.233);">
+            <h2 class="text-2xl font-semibold font-sans mb-4">Customer Registration</h2>
+            <form [formGroup]="customerForm">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-semibold mb-2">Full name</label>
+                    <input type="text" id="name" formControlName="name"
+                        class="shadow-sm bg-transparent border-b-2 border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter merchant name">
+                    <div *ngIf="customerForm.get('name')?.touched && customerForm.get('name')?.invalid"
+                        class="text-yellow-600">
+                        Merchant name is required.
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="contactNumber" class="block text-sm font-semibold mb-2">Contact Number</label>
+                    <input type="tel" id="contactNumber" formControlName="contactNumber"
+                        class="shadow-sm bg-transparent border-b-2  text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter contact number">
+                    <div *ngIf="customerForm.get('contactNumber')?.touched && customerForm.get('contactNumber')?.invalid"
+                        class="text-yellow-600">
+                        Contact number is required.
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-semibold mb-2">Email Address</label>
+                    <input type="email" id="email" formControlName="email"
+                        class="shadow-sm bg-transparent border-b-2  text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter email address">
+                    <div *ngIf="customerForm.get('email')?.touched && customerForm.get('email')?.invalid"
+                        class="text-yellow-600">
+                        <div *ngIf="customerForm.get('email')?.errors?.['required']">Email is required.</div>
+                        <div *ngIf="customerForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
+                        <div *ngIf="customerForm.get('email')?.errors?.['emailTaken']">This email is already in use.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-semibold mb-2">Password</label>
+                    <input type="password" id="password" formControlName="password"
+                        class="shadow-sm bg-transparent border-b-2  text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter password">
+                    <div *ngIf="customerForm.get('password')?.touched && customerForm.get('password')?.invalid"
+                        class="text-yellow-600">
+                        <div *ngIf="customerForm.get('password')?.errors?.['required']">Please fill the password.</div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-semibold mb-2">Confirm Password</label>
+                    <input type="password" id="confirmPassword" formControlName="confirmPassword"
+                        class="shadow-sm bg-transparent border-b-2  text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                        placeholder="Enter Confirm password">
+                    <div *ngIf="customerForm.get('confirmPassword')?.touched && customerForm.get('confirmPassword')?.invalid"
+                        class="text-yellow-600">
+                        <div *ngIf="customerForm.get('confirmPassword')?.errors?.['required']">
+                            Please fill the confirm password.
+                        </div>
+                        <div *ngIf="customerForm.get('confirmPassword')?.errors?.['passwordMismatch']">
+                            Passwords do not match.
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flex justify-end">
+                    <button (click)="saveData(); openModal()"
+                        [ngClass]="{'bg-darkgreen hover:bg-green-700': customerForm.valid, 'bg-gray-400 cursor-not-allowed': !customerForm.valid}"
+                        class="text-white px-6 py-2 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+                        [disabled]="!customerForm.valid">Submit</button>
+                </div>
+            </form>
+
+
+        </div>
+        <div *ngIf="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3 text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Account successfully registered</h3>
+                    <div class="mt-2 px-7 py-3">
+                        <p class="text-sm text-gray-500">Now try to log in to your account</p>
+
+                    </div>
+                    <div class="flex items-center justify-center space-x-4 py-3">
+                        <button (click)="closeModal()"
+                            class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

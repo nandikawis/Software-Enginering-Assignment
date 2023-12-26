@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MerchantService } from '../services/merchant.service';
-import { Renderer2, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Renderer2, ElementRef } from '@angular/core';
 import emailjs from '@emailjs/browser';
 @Component({
   selector: 'app-detail-merchant-registration',
@@ -19,16 +19,13 @@ export class DetailMerchantRegistrationComponent {
   ) { }
   showModal: boolean = false;
   openModal() {
-
+    this.showModal = true;
     this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
-
   }
-
   closeModal() {
     this.showModal = false;
     this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
   }
-
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = params['id']; // Get ID from route parameters
@@ -47,7 +44,17 @@ export class DetailMerchantRegistrationComponent {
     });
   }
 
-
+  deleteMerchant(id: string): void {
+    this.merchantService.deleteMerchantById(id).subscribe({
+      next: (response) => {
+        console.log(response.message);
+      },
+      error: (error) => {
+        console.error('Error deleting merchant:', error);
+        // Handle error, e.g., show error message
+      }
+    });
+  }
   approveMerchant(id: string, email: string, merchantname: string,): void {
     this.merchantService.approveMerchant(id).subscribe({
       next: (response) => {

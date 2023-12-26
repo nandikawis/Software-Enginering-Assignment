@@ -32,6 +32,16 @@ export class ProductService {
   }
 
 
+  getAllProducts(): Observable<any> {
+    return this.http.get(this.baseUrl);
+  }
+
+  getProductByCategory(category: string): Observable<any> {
+    let params = new HttpParams().set('category', category);
+    return this.http.get(`${this.baseUrl}/category`, { params });
+  }
+
+
 
 }
 

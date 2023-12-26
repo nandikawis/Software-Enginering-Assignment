@@ -1,21 +1,5 @@
 <div class="flex flex-col mx-auto min-w-full gap-3 mx-auto side:justify-self-center items-center ">
-    <div class="flex self-start mt-4">
-        <span class="flex items-center ms-3">Filter by :</span>
-        <div class="relative group py-2 ">
-            <a
-                class="cursor-pointer font-semibold  px-3 py-2 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray">{{
-                selectedStatus }}</a>
-            <!-- Dropdown Content -->
-            <div class=" absolute hidden group-hover:block bg-white shadow-lg p-2 min-w-[200px]">
-                <a (click)="updateStatus('Rejected')"
-                    class=" cursor-pointer block px-3 py-2 text-darkgray hover:bg-darkgray hover:text-lightgray">Rejected</a>
-                <a (click)="updateStatus('Pending')"
-                    class="cursor-pointer block px-3 py-2 text-darkgray hover:bg-darkgray hover:text-lightgray">Pending</a>
-                <a (click)="updateStatus('Accepted')"
-                    class="cursor-pointer block px-3 py-2 text-darkgray hover:bg-darkgray hover:text-lightgray">Accepted</a>
-            </div>
-        </div>
-    </div>
+
     <ng-container *ngFor="let card of cardsForCurrentPage">
         <div class="max-w-sm w-full bg-blue-500 sides:max-w-full sides:flex">
             <div class="h-48 sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
