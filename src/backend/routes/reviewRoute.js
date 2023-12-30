@@ -36,4 +36,14 @@ router.post('/review/:paypalTransactionId', async (req, res) => {
 
 });
 
+router.get('/review/:productId', async (req, res) => {
+    try {
+        const productId = req.params.productId;
+        const reviews = await Review.find({ productId: productId });
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
 module.exports = router;

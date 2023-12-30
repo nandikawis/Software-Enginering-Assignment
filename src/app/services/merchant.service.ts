@@ -11,6 +11,24 @@ export class MerchantService {
 
   constructor(private http: HttpClient) { }
 
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.baseUrl}/upload`, formData);
+  }
+
+  downloadFile(filename: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/download/${filename}`, { responseType: 'blob' });
+  }
+  downloadFileById(fileId: string, filename: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/downloadById/${fileId}/${filename}`, { responseType: 'blob' });
+  }
+
+  getFileId(filename: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/get-file-id/${filename}`);
+  }
+
   registerMerchant(merchantData: any): Observable<any> {
     return this.http.post(this.baseUrl, merchantData);
   }

@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const Grid = require('gridfs-stream');
 
-let gfs;
-
-mongoose.connection.once('open', () => {
-    gfs = Grid(mongoose.connection.db, mongoose.mongo);
-    gfs.collection('uploads'); // Collection name for file storage
+const imageSchema = new mongoose.Schema({
+    filename: String,
+    contentType: String,
+    uploadDate: { type: Date, default: Date.now },
+    // Add any additional metadata fields as needed
 });
 
-module.exports = { gfs: () => gfs };
+const Image = mongoose.model('Image', imageSchema);
+
+module.exports = Image;

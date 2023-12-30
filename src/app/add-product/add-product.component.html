@@ -59,6 +59,11 @@
                 </div>
             </div>
 
+            <div class="mb-4">
+                <label for="file" class="block text-sm font-semibold mb-2">Product Image</label>
+                <input type="file" formControlName="file" (change)="onFileSelected($event)" />
+            </div>
+
             <!-- Submit Button -->
             <div class="flex justify-end">
                 <button (click)="openModal()"

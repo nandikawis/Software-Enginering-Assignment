@@ -18,7 +18,7 @@ const receiptSchema = new mongoose.Schema({
     },
     merchantId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Merchant', // This tells Mongoose that this ID refers to a document in the Merchant collection
+        ref: 'Merchant',
         required: true
     },
     fullName: {
@@ -52,6 +52,10 @@ const receiptSchema = new mongoose.Schema({
         required: true
     },
     paymentEmail: {
+        type: String,
+        required: true
+    },
+    date: {
         type: String,
         required: true
     }

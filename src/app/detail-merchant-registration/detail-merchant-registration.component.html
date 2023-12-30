@@ -40,7 +40,7 @@
 
 
     </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
+    <div class="max-w-6xl w-full flex-col mx-auto mt-6 gap-6 ">
         <div class="flex  max-h-fit backdrop-blur rounded" style="background-color: rgba(126, 126, 126, 0.282);">
 
             <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
@@ -52,13 +52,19 @@
                 </div>
                 <div class="flex justify-start  gap-2 mt-2">
                     <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                            Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
-                            Donec
-                            duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames
-                            sit
-                            lectus. Scelerisque id bibendum velit cras. </p>
+                        <p class="font-light font-sans text-[15px]">{{merchant.fileDescription}} </p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-2">
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">{{merchant.fileName}} </p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-2">
+                    <div *ngIf="imageData" class="flex items-center">
+
+                        <img [src]="imageData" alt="Image">
+
                     </div>
                 </div>
                 <div class="flex justify-start  gap-2 mt-6">
@@ -66,17 +72,15 @@
 
                         <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
                     </div>
+
                     <div class="flex items-center">
-                        <p class="font-light font-sans text-[12px]">
-                            License.png
-                        </p>
-                    </div>
-                    <div class="flex items-center">
-                        <a href="">
+                        <a (click)="downloadFile()">
                             <p class="font-light font-sans text-[12px] hover:text-blue-500">Download</p>
                         </a>
                     </div>
+
                 </div>
+
             </div>
         </div>
         <div class=" flex max-h-fit backdrop-blur rounded pb-4" style="background-color: rgba(126, 126, 126, 0.282);">
@@ -88,7 +92,7 @@
                     </button>
                 </div>
                 <div class="flex justify-end">
-                    <button routerLink="/Officer" type="submit"
+                    <button routerLink="/Officer" (click)="deleteMerchant(merchant._id)"
                         class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300">
                         Decline
                     </button>

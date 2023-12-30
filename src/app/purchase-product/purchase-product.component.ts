@@ -17,12 +17,13 @@ export class PurchaseProductComponent implements OnInit {
   orderId: any;
 
 
-  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private productService: ProductService, private router: Router, private purchaseService: PurchaseService) {
+  constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
+    private productService: ProductService, private router: Router, private purchaseService: PurchaseService) {
     this.purchaseForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       contactNumber: ['', Validators.required],
       emailAddress: ['', [Validators.required, Validators.email]],
-      specialRequest: [''] // Optional field
+      specialRequest: ['']
     });
   }
 
@@ -30,24 +31,16 @@ export class PurchaseProductComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = params['productId'];
       this.productService.getProductByProductId(id).subscribe({
-        next: (data: any) => { // Replace 'any' with a more specific type if possible
+        next: (data: any) => {
           this.product = data;
         },
-        error: (error: any) => { // Same here for 'any'
+        error: (error: any) => {
           console.error('Error fetching merchant:', error);
         },
         complete: () => {
-          // Optional: Any cleanup or final actions when the Observable completes
         }
       });
     });
-  }
-
-  openModal() {
-    this.showModal = true;
-  }
-  closeModal() {
-    this.showModal = false;
   }
 
   confirmPurchase() {
@@ -96,5 +89,11 @@ export class PurchaseProductComponent implements OnInit {
     this.router.navigate(['/Payment', orderId]);
   }
 
+  openModal() {
+    this.showModal = true;
+  }
+  closeModal() {
+    this.showModal = false;
+  }
 
 }

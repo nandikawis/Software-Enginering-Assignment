@@ -10,6 +10,8 @@ import emailjs from '@emailjs/browser';
 })
 export class DetailMerchantRegistrationComponent {
   merchant: any;
+  showModal: boolean = false;
+  imageData: string | ArrayBuffer | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -17,31 +19,70 @@ export class DetailMerchantRegistrationComponent {
     private renderer: Renderer2,
     private el: ElementRef
   ) { }
-  showModal: boolean = false;
-  openModal() {
-    this.showModal = true;
-    this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
-  }
   closeModal() {
     this.showModal = false;
     this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      const id = params['id']; // Get ID from route parameters
+      const id = params['id'];
       console.log('Retrieved merchant ID:', id);
       this.merchantService.getMerchantById(id).subscribe({
-        next: (data: any) => { // Replace 'any' with a more specific type if possible
+        next: (data: any) => {
           this.merchant = data;
+          console.log('Retrieved merchant:', this.merchant.documentId);
+          this.merchantService.downloadFileById(data.documentId, data.fileName).subscribe(
+            (blob) => {
+              const reader = new FileReader();
+              reader.onloadend = () => {
+                this.imageData = reader.result;
+                console.log('Image data:', this.imageData);
+              };
+              reader.readAsDataURL(blob);
+            },
+            (error) => {
+              console.error('Error downloading file:', error);
+            }
+          );
         },
-        error: (error: any) => { // Same here for 'any'
+        error: (error: any) => {
           console.error('Error fetching merchant:', error);
         },
         complete: () => {
-          // Optional: Any cleanup or final actions when the Observable completes
+
         }
       });
     });
+  }
+
+  downloadFile(): void {
+    this.merchantService.downloadFileById(this.merchant.documentId, this.merchant.fileName).subscribe(
+      (blob) => {
+        console.log("file is found")
+
+        const url = window.URL.createObjectURL(blob);
+
+        // Create an anchor element
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = this.merchant.documentId;
+
+        // Append the anchor element to the document
+        document.body.appendChild(a);
+
+        // Trigger a click on the anchor element to start the download
+        a.click();
+
+        // Remove the anchor element from the document
+        document.body.removeChild(a);
+
+        // Release the blob URL
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Error downloading the file:', error);
+      }
+    );
   }
 
   deleteMerchant(id: string): void {
@@ -51,7 +92,6 @@ export class DetailMerchantRegistrationComponent {
       },
       error: (error) => {
         console.error('Error deleting merchant:', error);
-        // Handle error, e.g., show error message
       }
     });
   }
@@ -69,11 +109,11 @@ export class DetailMerchantRegistrationComponent {
           _pass: password,
           to_email: email
         });
-        // Handle the response, e.g., show a success message, refresh the list, etc.
+
       },
       error: (error) => {
         console.error('Error approving merchant:', error);
-        // Handle error, e.g., show error message
+
       }
     });
   }

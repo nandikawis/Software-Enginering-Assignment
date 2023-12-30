@@ -36,6 +36,18 @@ const merchantSchema = new mongoose.Schema({
         type: String,
 
     },
+    documentId: {
+        type: String,
+        required: true
+    },
+    fileDescription: {
+        type: String,
+        required: true
+    },
+    fileName: {
+        type: String,
+        required: true
+    }
 
 });
 
