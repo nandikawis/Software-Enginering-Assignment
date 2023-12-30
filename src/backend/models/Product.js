@@ -28,15 +28,13 @@ const productSchema = new mongoose.Schema({
         required: true
 
     },
-    averageRating: {
-        type: Number,
-        default: 0,
-        min: 0,
-        max: 5
+    imageId: {
+        type: String,
+        required: true
     },
-    numberOfRatings: {
-        type: Number,
-        default: 0
+    fileName: {
+        type: String,
+        required: true
     }
 });
 

@@ -13,4 +13,8 @@ export class ReviewService {
     return this.http.post(`${this.BaseUrl}/review/${paypalTransactionId}`, { reviewDetails });
   }
 
+  getReviewsByProductId(productId: string): Observable<any> {
+    return this.http.get(`${this.BaseUrl}/review/${productId}`);
+  }
+
 }

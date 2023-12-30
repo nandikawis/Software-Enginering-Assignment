@@ -6,10 +6,9 @@
                 [style.transform]="'translateX(-' + promoSlideIndex * (100) + '%)'">
                 <ng-container *ngFor="let images of promo">
                     <div class="flex-none w-[100%] p-4">
-                        <div class="mx-auto max-w-4xl rounded overflow-hidden shadow-lg h-[24rem]">
-                            <a href="">
-
-                                <img class="w-full" [src]="images.image">
+                        <div class="mx-auto max-w-4xl rounded overflow-hidden shadow-lg ">
+                            <a class="w-full h-full block overflow-hidden">
+                                <img class="w-full h-full object-cover" [src]="images.image" alt="Description" />
                             </a>
                         </div>
                     </div>
@@ -223,7 +222,141 @@
 
             </div>
         </div>
-        <div class=" flex max-h-fit backdrop-blur rounded pb-4" style="background-color: rgba(126, 126, 126, 0.282);">
+        <div *ngIf="!noReview" class=" flex max-h-fit backdrop-blur rounded pb-4"
+            style="background-color: rgba(126, 126, 126, 0.282);">
+            <div *ngIf="overAllReview" class="flex flex-col justify-start basis-4/6 px-4 py-4">
+                <div class="flex justify-start   ">
+                    <h1 class=" font-sans font-bold text-xl mt-4 ">Testimonial</h1>
+
+                </div>
+                <div class="flex justify-start ">
+                    <p class="font-light font-sans text-[15px]">Overall reviews and ratings </p>
+
+                </div>
+
+                <div class=" font-sans flex items-center md:flex  space-x-2 mt-6">
+                    <div class="flex border-2 rounded-full w-[40px] h-[40px]  items-center">
+                        <a
+                            class=" border-darkgray-300  mx-auto font-sans text-white text-[20px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                            {{overAllReview.averageRating}}</a>
+                    </div>
+                    <div class="flex items-center flex-col">
+                        <div class="flex justify-start items-center gap-[2px]">
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+                            <div class="flex items-center">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                            </div>
+
+                        </div>
+                        <p class="font-light font-sans text-[15px] ">Ratings</p>
+                    </div>
+                </div>
+
+
+                <div class="flex justify-start  mt-4">
+
+                    <div class="flex justify-start  gap-2 mt-4">
+                        <div class="flex items-center">
+                            <p class="font-light font-sans text-[15px]">Scroll down the look at the review from our
+                                customer that have been enjoy our product</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-4">
+                    <div class="flex items-center">
+
+                        <p class="font-light font-sans text-[12px]">{{overAllReview.numberOfRatings}}</p>
+                    </div>
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[12px]">Reviews</p>
+                    </div>
+                </div>
+                <br>
+                <div class="w-full border-b-2">
+
+                </div>
+                <ng-container *ngFor="let card of cardsForCurrentPage">
+                    <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
+                        <div class="flex self-start justify-start">
+                            <a href=""
+                                class="border-2 bg-[url('assets/nandika.jpg')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                            </a>
+                        </div>
+
+                        <div class="flex-1  flex-col">
+                            <div class="flex justify-start gap-[2px]">
+                                <div class="flex items-center">
+                                    <p class="font-light font-sans text-[15px] ">{{card.fullName}}</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-start  gap-[2px] ">
+                                <div class="flex items-center">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                                </div>
+                                <div class="flex items-center">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                                </div>
+                                <div class="flex items-center">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                                </div>
+                                <div class="flex items-center">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                                </div>
+                                <div class="flex items-center">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+                                </div>
+
+                            </div>
+                            <div class="flex justify-start min-w-full gap-[2px] ">
+
+                                <div class="w-full  flex-col mt-4 border-2 rounded p-2">
+                                    <p class="px-2  font-semibold font-sans text-[15px]">Nice </p>
+                                    <p class="px-2  font-light font-sans text-[15px]">{{card.reviewDescription}}</p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="pagination-controls flex justify-center items-center space-x-2 my-4">
+                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+                        (click)="goToPrevious()" [disabled]="currentPage === 1">
+                        Prev
+                    </button>
+
+                    <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                        (click)="goToPage(i + 1)" [class.bg-darkgray]="currentPage === i + 1">
+                        {{ i + 1 }}
+                    </button>
+
+                    <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+                        (click)="goToNext()" [disabled]="currentPage === totalPages">
+                        Next
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div *ngIf="noReview" class=" flex max-h-fit backdrop-blur rounded pb-4"
+            style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
                 <div class="flex justify-start   ">
                     <h1 class=" font-sans font-bold text-xl mt-4 ">Testimonial</h1>

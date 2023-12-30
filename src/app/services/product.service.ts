@@ -16,6 +16,18 @@ export class ProductService {
     return this.http.post(this.baseUrl, productData);
   }
 
+  downloadFileById(fileId: string, filename: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/downloadById/${fileId}/${filename}`, { responseType: 'blob' });
+  }
+
+
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.baseUrl}/upload`, formData);
+  }
+
   // to fetch all products for a specific merchant
   getProductsByMerchantId(merchantId: string): Observable<any> {
     let params = new HttpParams().set('merchantId', merchantId);
@@ -40,8 +52,6 @@ export class ProductService {
     let params = new HttpParams().set('category', category);
     return this.http.get(`${this.baseUrl}/category`, { params });
   }
-
-
 
 }
 

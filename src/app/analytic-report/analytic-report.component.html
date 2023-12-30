@@ -1,17 +1,14 @@
-<section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 pb-10 ">
+<section class="flex-1 flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 pb-10 ">
     <div class="max-w-6xl flex flex-row mx-auto  gap-6 ">
-        <div class="flex flex-col  justify-start px-4 py-4 max-h-fitbackdrop-blur rounded"
+        <div *ngIf="merchant" class="w-full flex-col  justify-start px-4 py-4 max-h-fitbackdrop-blur rounded"
             style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex justify-start   ">
-                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
+                <h1 class=" font-sans font-bold text-5xl mt-4 ">{{merchant.name}}</h1>
             </div>
 
             <div class="flex justify-start  gap-2 mt-6">
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
-                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
-                        lectus. Scelerisque id bibendum velit cras. </p>
+                    <p class="font-light font-sans text-[15px]">{{merchant.companyDescription}}</p>
                 </div>
             </div>
             <div class="flex justify-start  gap-2 mt-6">
@@ -23,7 +20,7 @@
                     <h1 class=" font-sans text-[15px] ">Email :</h1>
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">gentinggroup&#64;gmail.com</p>
+                    <p class="font-light font-sans text-[12px]">{{merchant.email}}</p>
                 </div>
             </div>
             <div class="flex justify-start  gap-2 mt-2">
@@ -35,14 +32,14 @@
                     <h1 class=" font-sans text-[15px] ">Contact :</h1>
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">+61723891247</p>
+                    <p class="font-light font-sans text-[12px]">{{merchant.contactNumber}}</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="flex self-start mt-4 ">
+    <div class="flex self-start mt-4 z-0 ">
         <span class="flex items-center ms-3">Filter by :</span>
-        <div class="relative group py-2">
+        <div class="relative group py-2 z-10">
             <a
                 class="cursor-pointer font-semibold  px-3 py-2 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray">{{
                 selectedStatus }}</a>
@@ -57,31 +54,45 @@
             </div>
         </div>
     </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-        <div class="flex  max-h-fit backdrop-blur rounded" style="background-color: rgba(126, 126, 126, 0.282);">
-
-            <div class="flex flex-col justify-start basis-3/6 px-4 py-4">
-                <div class="flex justify-start">
-                    <h1 class=" font-sans font-bold text-xl mt-4 ">Document</h1>
-                </div>
-                <div class="flex justify-start mt-4">
-                    <h1 class=" font-sans text-[15px] ">Description :</h1>
-                </div>
-                <div class="flex justify-start  gap-2 mt-2">
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                            Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
-                            Donec
-                            duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames
-                            sit
-                            lectus. Scelerisque id bibendum velit cras. </p>
+    <div *ngIf="selectedStatus === 'Sales'" class="w-full z-0 mx-auto mt-6 gap-6 ">
+        <div class="flex  max-h-fit backdrop-blur rounded border-2" style="background-color: rgba(126, 126, 126, 0);">
+            <div *ngIf="chartSeries.length > 0" class="flex   backdrop-blur rounded w-full"
+                style="background-color: rgba(126, 126, 126, 0.066);">
+                <div class="px-4 py-4 w-full">
+                    <!-- analytics-chart.component.html -->
+                    <div class="text-black">
+                        <apx-chart [series]="chartSeries" [chart]="chartOptions" [xaxis]="chartXaxis"
+                            [yaxis]="chartYaxis" [title]="chartTitle"></apx-chart>
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between basis-3/6 backdrop-blur rounded w-full"
-                style="background-color: rgba(126, 126, 126, 0.282);">
-                <div class="px-4 py-4">
+        </div>
+    </div>
+    <div *ngIf="selectedStatus === 'Sales'" class="max-w-6xl flex flex-row mx-auto mt-6 gap-6 ">
+        <div class="flex flex-row flex-wrap  gap-10 px-4 py-4 max-h-fit min-w-full backdrop-blur rounded"
+            style="background-color: rgba(126, 126, 126, 0.282);">
+
+
+            <div *ngFor="let productStat of productStats">
+                <h3>{{ productStat.name }}</h3>
+                <p>Product Sold: {{ productStat.productSold }}</p>
+                <p>Revenue: {{ productStat.revenue }}</p>
+            </div>
+
+            <!-- Display Total Product Sold and Total Revenue -->
+            <p>Total Product Sold: {{ totalProductSold }}</p>
+            <p>Total Revenue: {{ totalRevenue }}</p>
+
+
+        </div>
+    </div>
+
+
+    <div *ngIf="selectedStatus === 'Purchasing Power'" class="w-full mx-auto mt-6 gap-6 ">
+        <div class="flex  max-h-fit backdrop-blur rounded border-2" style="background-color: rgba(126, 126, 126, 0);">
+            <div *ngIf="chartSeries.length > 0" class="flex   backdrop-blur rounded w-full"
+                style="background-color: rgba(126, 126, 126, 0.066);">
+                <div class="px-4 py-4 w-full">
                     <!-- analytics-chart.component.html -->
                     <div class="text-black">
                         <apx-chart [series]="chartSeries" [chart]="chartOptions" [xaxis]="chartXaxis"
@@ -93,7 +104,7 @@
 
 
     </div>
-    <div class="max-w-6xl flex flex-row mx-auto mt-6 gap-6 ">
+    <div *ngIf="selectedStatus === 'Purchasing Power'" class="max-w-6xl flex flex-row mx-auto mt-6 gap-6 ">
         <div class="flex flex-row flex-wrap  gap-10 px-4 py-4 max-h-fit min-w-full backdrop-blur rounded"
             style="background-color: rgba(126, 126, 126, 0.282);">
 

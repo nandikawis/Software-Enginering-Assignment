@@ -1,6 +1,79 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
+const Image = require('../models/Attachment');
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const mongoose = require('mongoose');
+
+router.get('/downloadById/:id/:filename', async (req, res) => {
+    try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
+
+        // Convert the provided ID to a valid ObjectId
+        const fileId = new mongoose.Types.ObjectId(req.params.id);
+
+        const files = await bucket.find({ _id: fileId }).toArray();
+
+        if (!files || files.length === 0) {
+            return res.status(404).send('File not found');
+        }
+
+        const downloadStream = bucket.openDownloadStream(fileId);
+        const fileName = req.params.filename;
+        const fileExtension = fileName.slice(-3).toLowerCase(); // Get the last three characters as the file extension
+
+        if (fileExtension === 'png') {
+            res.set('Content-Type', 'image/png');
+        } else if (fileExtension === 'jpg' || fileExtension === 'jpeg') {
+            res.set('Content-Type', 'image/jpeg');
+        } else if (fileExtension === 'pdf') {
+            res.set('Content-Type', 'application/pdf');
+        } else {
+            // Add more conditions for other file types as needed
+            res.set('Content-Type', 'application/octet-stream'); // Fallback for unknown types
+        }
+        res.setHeader('Content-Disposition', `inline; filename=${downloadStream.s.filename}`);
+
+        // Pipe the download stream to the response
+        downloadStream.pipe(res);
+    } catch (error) {
+        console.error('Error downloading file:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.post('/upload', upload.single('file'), async (req, res) => {
+    try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
+        const { originalname, mimetype, buffer } = req.file;
+
+        // Save metadata to MongoDB using Mongoose
+        const image = new Image({
+            filename: originalname,
+            contentType: mimetype,
+        });
+
+        await image.save();
+
+        // Save file to GridFS
+        const uploadStream = bucket.openUploadStream(image.filename, { contentType: mimetype });
+        uploadStream.end(buffer);
+        console.log('Used _id in GridFSBucket:', image.filename);
+        uploadStream.on('finish', async () => {
+            // Query fs.files to get the correct _id
+            const files = await bucket.find({ filename: image.filename }).toArray();
+            const savedFileId = files.length > 0 ? files[0]._id : null;
+            console.log('Used _id in fs.files:', savedFileId);
+            res.json({ message: 'File uploaded successfully', fileId: savedFileId, fileName: image.filename });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error uploading file' });
+    }
+});
 
 
 
@@ -52,7 +125,7 @@ router.put('/editProduct/:productId', async (req, res) => {
         const { newName, newPrice, newDescription } = req.body;
 
         const updatedProduct = await Product.findOneAndUpdate(
-            { productId: customProductId }, // Use your custom productId field for the query
+            { productId: customProductId },
             { $set: { productName: newName, price: newPrice, productDescription: newDescription } },
             { new: true }
         );

@@ -3,10 +3,125 @@ const router = express.Router();
 const Merchant = require('../models/Merchant');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
+const Image = require('../models/Attachment');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const mongoose = require('mongoose');
 
 const saltRounds = 10;
+router.get('/download/:filename', async (req, res) => {
+    try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
+        const files = await bucket.find({ filename: req.params.filename }).toArray();
+
+        if (!files || files.length === 0) {
+            return res.status(404).send('File not found');
+        }
+
+        const downloadStream = bucket.openDownloadStreamByName(req.params.filename);
+
+        // Set response headers
+        res.set('Content-Type', 'image/png');
+        res.setHeader('Content-Disposition', `inline; filename=${req.params.filename}`);
+
+        // Pipe the download stream to the response
+        downloadStream.pipe(res);
+    } catch (error) {
+        console.error('Error downloading file:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.get('/downloadById/:id/:filename', async (req, res) => {
+    try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
+
+        // Convert the provided ID to a valid ObjectId
+        const fileId = new mongoose.Types.ObjectId(req.params.id);
+
+        const files = await bucket.find({ _id: fileId }).toArray();
+
+        if (!files || files.length === 0) {
+            return res.status(404).send('File not found');
+        }
+
+        const downloadStream = bucket.openDownloadStream(fileId);
+        const fileName = req.params.filename;
+        const fileExtension = fileName.slice(-3).toLowerCase(); // Get the last three characters as the file extension
+
+        if (fileExtension === 'png') {
+            res.set('Content-Type', 'image/png');
+        } else if (fileExtension === 'jpg' || fileExtension === 'jpeg') {
+            res.set('Content-Type', 'image/jpeg');
+        } else if (fileExtension === 'pdf') {
+            res.set('Content-Type', 'application/pdf');
+        } else {
+            // Add more conditions for other file types as needed
+            res.set('Content-Type', 'application/octet-stream'); // Fallback for unknown types
+        }
+        res.setHeader('Content-Disposition', `inline; filename=${downloadStream.s.filename}`);
+
+        // Pipe the download stream to the response
+        downloadStream.pipe(res);
+    } catch (error) {
+        console.error('Error downloading file:', error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+router.get('/get-file-id/:filename', async (req, res) => {
+    try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
+        const files = await bucket.find({ filename: req.params.filename }).toArray();
+
+        if (!files || files.length === 0) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+
+        // Return the _id in the response
+        res.json({ _id: files[0]._id.toString() });
+    } catch (error) {
+        console.error('Error retrieving file ID:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
+
+router.post('/upload', upload.single('file'), async (req, res) => {
+    try {
+        const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
+        const { originalname, mimetype, buffer } = req.file;
+
+        // Save metadata to MongoDB using Mongoose
+        const image = new Image({
+            filename: originalname,
+            contentType: mimetype,
+        });
+
+        await image.save();
+
+        // Save file to GridFS
+        const uploadStream = bucket.openUploadStream(image.filename, { contentType: mimetype });
+        uploadStream.end(buffer);
+        console.log('Used _id in GridFSBucket:', image.filename);
+        uploadStream.on('finish', async () => {
+            // Query fs.files to get the correct _id
+            const files = await bucket.find({ filename: image.filename }).toArray();
+            const savedFileId = files.length > 0 ? files[0]._id : null;
+            console.log('Used _id in fs.files:', savedFileId);
+            res.json({ message: 'File uploaded successfully', fileId: savedFileId, fileName: image.filename });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error uploading file' });
+    }
+});
+
+
+// GET route to check if email is available for registration
 router.get('/check-email', async (req, res) => {
     const { email } = req.query;
     const merchant = await Merchant.findOne({ email: email });
@@ -17,6 +132,7 @@ router.get('/check-email', async (req, res) => {
     }
 });
 
+// GET route to check if old password matches
 router.get('/check-oldpassword', async (req, res) => {
     const { newpassword, oldpassword } = req.query;
 
@@ -28,6 +144,7 @@ router.get('/check-oldpassword', async (req, res) => {
     }
 });
 
+// POST route for login
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -50,7 +167,7 @@ router.post('/login', async (req, res) => {
 
         console.log('Credentials match');
         // Generate a JWT token
-        const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '5m' });
+        const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '30m' });
         console.log('Generated JWT Token:', token);
         res.json({ token }); // Send the token to the client
     } catch (error) {
@@ -59,6 +176,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// PUT route to approve a merchant
 router.put('/approve', async (req, res) => {
     try {
         const { _id } = req.body;
@@ -81,6 +199,8 @@ router.put('/approve', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+// GET route to fetch a single merchant by email
 router.get('/email', async (req, res) => {
     try {
         const { email } = req.query;
@@ -92,6 +212,8 @@ router.get('/email', async (req, res) => {
     }
 });
 
+
+// GET route to fetch a single merchant by merchantId
 router.get('/merchantId', async (req, res) => {
     try {
         const { merchantId } = req.query;
@@ -103,6 +225,8 @@ router.get('/merchantId', async (req, res) => {
     }
 });
 
+
+// PUT route to change password
 router.put('/changePassword', async (req, res) => {
     try {
         const { email, newpassword } = req.body;
@@ -129,7 +253,7 @@ router.put('/changePassword', async (req, res) => {
 });
 
 
-
+// POST route to create a new merchant
 router.post('/', async (req, res) => {
     console.log('Received data:', req.body);
     try {
@@ -154,7 +278,6 @@ router.get('/', async (req, res) => {
 });
 
 
-//Check the email already exist or not
 
 
 // GET route to fetch a single merchant by ID

@@ -22,5 +22,10 @@ export class ReceiptService {
     return this.http.get(`${this.BaseUrl}/paypalTransactionId`, { params });
   }
 
+  getReceiptsByProductId(productId: string): Observable<any> {
+    let params = new HttpParams().set('productId', productId);
+    return this.http.get(`${this.BaseUrl}/productId`, { params });
+  }
+
 
 }

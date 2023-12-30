@@ -28,7 +28,8 @@ router.post('/order/capture/:orderId', async (req, res) => {
             email: purchase.email,
             status: transactionDetails.status,
             paypalTransactionId: transactionDetails.id,
-            paymentEmail: transactionDetails.payer.email_address
+            paymentEmail: transactionDetails.payer.email_address,
+            date: transactionDetails.create_time
         };
 
         const newReceipt = new Receipt(receiptData);
@@ -57,10 +58,37 @@ router.get('/customerReceipt', async (req, res) => {
     }
 })
 
+router.get('/merchantId', async (req, res) => {
+    try {
+        const merchantId = req.query.merchantId;
+        if (!merchantId) {
+            return res.status(400).json({ message: "Merchant ID is required" });
+        }
+
+        const receipts = await Receipt.find({ merchantId: merchantId });
+        res.json(receipts);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
 router.get('/paypalTransactionId', async (req, res) => {
     const paypalTransactionId = req.query.paypalTransactionId;
     try {
         const receipt = await Receipt.findOne({ paypalTransactionId: paypalTransactionId });
+        if (!receipt) {
+            return res.status(404).json({ message: 'Receipt not found' });
+        }
+        res.json(receipt);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
+router.get('/productId', async (req, res) => {
+    const productId = req.query.productId;
+    try {
+        const receipt = await Receipt.find({ productId: productId });
         if (!receipt) {
             return res.status(404).json({ message: 'Receipt not found' });
         }
