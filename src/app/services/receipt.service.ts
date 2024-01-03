@@ -27,5 +27,9 @@ export class ReceiptService {
     return this.http.get(`${this.BaseUrl}/productId`, { params });
   }
 
+  editReviewStatus(paypalTransactionId: string): Observable<any> {
+    return this.http.put(`${this.BaseUrl}/updateReviewStatus/`, { paypalTransactionId });
+  }
+
 
 }

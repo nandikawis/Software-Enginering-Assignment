@@ -49,7 +49,7 @@ router.post('/login', async (req, res) => {
 
         console.log('Credentials match');
         // Generate a JWT token
-        const token = jwt.sign({ id: customer._id }, process.env.JWT_SECRET, { expiresIn: '30m' });
+        const token = jwt.sign({ id: customer._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         console.log('Generated JWT Token:', token);
         res.json({ token }); // Send the token to the client
     } catch (error) {

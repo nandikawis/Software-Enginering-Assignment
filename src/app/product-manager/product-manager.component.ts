@@ -19,6 +19,8 @@ export class ProductManagerComponent {
   public currentPage = 1;
   public totalPages: number;
   imageData: string | ArrayBuffer | null = null;
+  confirmModal: boolean = false;
+  deleteModal: boolean = false;
 
   constructor(private reviewService: ReviewService, private productService: ProductService, private router: Router) {
     this.totalPages = Math.ceil(this.cards.length / this.pageSize);
@@ -27,7 +29,7 @@ export class ProductManagerComponent {
   ngOnInit(): void {
     const merchantId = sessionStorage.getItem('merchantId');
     if (merchantId) {
-      this.productService.getProductsByMerchantId(merchantId).subscribe({
+      this.productService.getProductsByMerchantIdAndStatus(merchantId).subscribe({
         next: (res) => {
           for (const product of res) {
             this.processProduct(product);
@@ -38,6 +40,10 @@ export class ProductManagerComponent {
         }
       });
     }
+  }
+
+  formatRating(rating: number): string {
+    return rating.toFixed(1);
   }
 
   private processProduct(product: any): void {
@@ -101,6 +107,15 @@ export class ProductManagerComponent {
     );
   }
 
+  getfullStars(rating: number) {
+    return new Array(Math.floor(rating));
+  }
+
+  gethasHalfStar(rating: number) {
+    return rating % 1 >= 0.5;
+  }
+
+
 
   public get cardsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
@@ -121,6 +136,34 @@ export class ProductManagerComponent {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+  }
+
+  openConfirmModal() {
+    this.confirmModal = true;
+  }
+
+  closeConfirmModal() {
+    this.confirmModal = false;
+  }
+
+  closeDeleteModal() {
+    this.deleteModal = false;
+  }
+
+  deleteProduct(productId: string): void {
+    if (!productId) {
+      console.error('Merchant ID is undefined or null');
+      return;
+    }
+    this.productService.deleteProduct(productId).subscribe({
+      next: () => {
+        console.log('Product deleted successfully');
+        this.deleteModal = true;
+      },
+      error: (error) => {
+        console.error('Error deleting product:', error);
+      }
+    });
   }
 
   navigateToEdit(productId: string): void {

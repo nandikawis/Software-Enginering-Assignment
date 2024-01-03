@@ -12,6 +12,8 @@ export class DetailMerchantRegistrationComponent {
   merchant: any;
   showModal: boolean = false;
   imageData: string | ArrayBuffer | null = null;
+  confirmModal: boolean = false;
+  rejectModal: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,19 +33,23 @@ export class DetailMerchantRegistrationComponent {
         next: (data: any) => {
           this.merchant = data;
           console.log('Retrieved merchant:', this.merchant.documentId);
-          this.merchantService.downloadFileById(data.documentId, data.fileName).subscribe(
-            (blob) => {
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                this.imageData = reader.result;
-                console.log('Image data:', this.imageData);
-              };
-              reader.readAsDataURL(blob);
-            },
-            (error) => {
-              console.error('Error downloading file:', error);
-            }
-          );
+          if (this.merchant.documentId) {
+            this.merchantService.downloadFileById(data.documentId, data.fileName).subscribe(
+              (blob) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  this.imageData = reader.result;
+                  console.log('Image data:', this.imageData);
+                };
+                reader.readAsDataURL(blob);
+              },
+              (error) => {
+                console.error('Error downloading file:', error);
+              }
+            );
+          } else {
+
+          }
         },
         error: (error: any) => {
           console.error('Error fetching merchant:', error);
@@ -85,16 +91,7 @@ export class DetailMerchantRegistrationComponent {
     );
   }
 
-  deleteMerchant(id: string): void {
-    this.merchantService.deleteMerchantById(id).subscribe({
-      next: (response) => {
-        console.log(response.message);
-      },
-      error: (error) => {
-        console.error('Error deleting merchant:', error);
-      }
-    });
-  }
+
   approveMerchant(id: string, email: string, merchantname: string,): void {
     this.merchantService.approveMerchant(id).subscribe({
       next: (response) => {
@@ -117,4 +114,33 @@ export class DetailMerchantRegistrationComponent {
       }
     });
   }
+
+  openConfirmModal() {
+    this.confirmModal = true;
+  }
+
+  closeConfirmModal() {
+    this.confirmModal = false;
+  }
+
+  closeRejectModal() {
+    this.rejectModal = false;
+  }
+
+  rejectMerchant(id: string): void {
+    this.merchantService.rejectMerchant(id).subscribe({
+      next: (response) => {
+        this.rejectModal = true;
+
+        console.log(response.message);
+      },
+      error: (error) => {
+        console.error('Error rejecting merchant:', error);
+
+      }
+    });
+  }
+
+
+
 }

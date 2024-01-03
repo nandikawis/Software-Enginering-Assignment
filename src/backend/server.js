@@ -19,6 +19,8 @@ const receiptRoute = require('./routes/receiptRoute');
 
 const reviewRoute = require('./routes/reviewRoute');
 
+const officerRoute = require('./routes/officerRoute');
+
 // Creating a MongoDB client instance with connection string and options
 mongoose.connect(uri)
     .then(() => console.log("Connected successfully to MongoDB Atlas"))
@@ -48,6 +50,8 @@ app.use('/purchases', purchaseRoute);
 app.use('/receipts', receiptRoute);
 
 app.use('/reviews', reviewRoute);
+
+app.use('/officer', officerRoute);
 
 
 // Starting the Express server

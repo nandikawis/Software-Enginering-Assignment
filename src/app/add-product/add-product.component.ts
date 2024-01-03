@@ -18,6 +18,7 @@ export class AddProductComponent {
     this.productForm = new FormGroup({
       productName: new FormControl('', Validators.required),
       category: new FormControl('', Validators.required),
+      location: new FormControl('', Validators.required),
       price: new FormControl('', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]),
       productDescription: new FormControl('', Validators.required),
       file: new FormControl('', [Validators.required])
@@ -44,6 +45,7 @@ export class AddProductComponent {
             "merchantId": this.merchantId,
             "productName": this.productForm.value.productName,
             "category": this.productForm.value.category,
+            "location": this.productForm.value.location,
             "price": this.productForm.value.price,
             "productDescription": this.productForm.value.productDescription,
             "imageId": response.fileId,

@@ -1,5 +1,5 @@
 <section class=" mx-auto text-white z-0 bg-cover " style="background-image: url(assets/abstract-envelope.svg) ;">
-    <div class=" max-w-6xl grid grid-rows-3 grid-flow-col gap-5 min-h-[70vh] mx-auto  pb-8">
+    <div class="side:pr-10 side:pl-10 max-w-6xl grid grid-rows-3 grid-flow-col gap-5 min-h-[70vh] mx-auto  pb-8">
         <div class=" row-start-2 row-span-2 flex flex-col">
             <h1 class="font-sans font-bold text-3xl mt-4">Merchant</h1>
             <p>With in our jorney to provide you a really helpfull system to get your vacation from
@@ -14,9 +14,8 @@
                     Register</a>
             </div>
         </div>
-        <div
-            class=" border-[8px] row-start-1 row-end-4 col-span-2 right-0 rounded max-w-lg h-[300px] mx-auto mt-[15vh]">
-            <img class=" w-full h-full rounded-[5%]" src="https://source.unsplash.com/1000x600?malaysia" alt="">
+        <div class="side:hidden  row-start-1 row-end-4 col-span-2 right-0 rounded max-w-lg h-[300px] mx-auto mt-[15vh]">
+            <img class=" md:w-full md:h-full " src="https://source.unsplash.com/1000x600?malaysia" alt="">
         </div>
     </div>
     <div *ngIf="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
@@ -28,14 +27,38 @@
                     <form [formGroup]="loginForm" (ngSubmit)="login()">
                         <input type="email" formControlName="email" placeholder="Email"
                             class="w-full text-darkgray px-3 py-2 border rounded mb-2">
+                        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+                            class="text-yellow-600">
+                            <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+                            <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
+
+                        </div>
                         <input type="password" formControlName="password" placeholder="Password"
                             class="w-full text-darkgray px-3 px-3 py-2 border rounded mb-2">
-                        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Login</button>
+                        <button [disabled]="loginForm.invalid" type="submit"
+                            class="w-full bg-blue-500 text-white p-2 rounded">Login</button>
                     </form>
                 </div>
                 <div class="items-center px-4 py-3">
                     <button (click)="closeModal()"
                         class="px-4 py-2 bg-gray-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-400">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loginAlert" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Login Failed</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">Your password or email is not match
+                    </p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button (click)="closeLoginAlert(); showModal = true"
+                        class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
                         Close
                     </button>
                 </div>

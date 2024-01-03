@@ -85,7 +85,7 @@
                     <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">Resort World Genting, Pahang, Malaysia</p>
+                    <p class="font-light font-sans text-[12px]">{{product.location}}</p>
                 </div>
             </div>
             <div class="flex justify-start  gap-2 mt-4">
@@ -93,24 +93,20 @@
                     <p class="font-light font-sans text-[15px]">{{product.productDescription}}</p>
                 </div>
             </div>
-            <div class="flex justify-start mt-4  gap-[2px] ">
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
+            <div *ngIf="overAllReview" class="flex justify-start mt-4  gap-[2px] ">
+                <div class="flex justify-start items-center ">
+                    <!-- Full Stars -->
+                    <ng-container *ngFor="let star of fullStars">
+                        <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                    </ng-container>
+
+                    <!-- Half Star -->
+                    <img *ngIf="hasHalfStar" class="w-[7.5px] h-[15px]" src="assets/half-star.png" alt="half star">
                 </div>
+
                 <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                </div>
-                <div class="flex items-center">
-                    <p class="font-light font-sans mt-[2px] text-[12px]">(90) | Lorem Ipsum</p>
+                    <p class="font-light font-sans mt-[2px] text-[12px]">| ({{overAllReview.numberOfRatings}}) Reviews
+                    </p>
                 </div>
 
             </div>
@@ -124,7 +120,7 @@
 
                 </div>
                 <div class="flex justify-start  mx-auto ">
-                    <h1 class=" font-sans  text-3xl mt-4 ">RM{{product.price}}</h1>
+                    <h1 class=" font-sans  text-3xl mt-4 ">$ {{product.price}}</h1>
                 </div>
 
                 <div class=" font-sans flex items-center md:flex items-center space-x-5">
@@ -146,10 +142,10 @@
                 <div class="flex justify-start  gap-2 mt-4">
                     <div class="flex items-center">
 
-                        <img class="w-[15px] h-[15px]" src="assets/whitedate.png" alt="">
+                        <img class="w-[15px] h-[15px]" src="assets/best-price.png" alt="">
                     </div>
                     <div class="flex items-center">
-                        <p class="font-light font-sans text-[12px]">Available Now</p>
+                        <p class="font-light font-sans text-[12px]">Best price</p>
                     </div>
                 </div>
 
@@ -158,71 +154,9 @@
         </div>
 
     </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
-        <div class="flex  max-h-fit backdrop-blur rounded" style="background-color: rgba(126, 126, 126, 0.282);">
+    <div class="max-w-6xl w-full flex-col mx-auto mt-6 gap-6 ">
 
-            <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
-                <div class="flex justify-start   ">
-                    <h1 class=" font-sans font-bold text-xl mt-4 ">Information</h1>
-
-
-                </div>
-                <div class="flex justify-start  gap-2 mt-6">
-                    <div class="flex items-center">
-
-                        <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
-                    </div>
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[12px]">Resort World Genting, Pahang, Malaysia</p>
-                    </div>
-                </div>
-                <div class="flex justify-start  gap-2 mt-4">
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                            Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
-                            Donec
-                            duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames
-                            sit
-                            lectus. Scelerisque id bibendum velit cras. </p>
-                    </div>
-                </div>
-                <div class="flex justify-start  gap-2 mt-4">
-                    <div class="flex items-center">
-                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
-                    </div>
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Duration </p>
-                    </div>
-                </div>
-                <div class="flex justify-start  gap-2 mt-4">
-                    <div class="flex items-center">
-                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
-                    </div>
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Ticket Entry</p>
-                    </div>
-                </div>
-                <div class="flex justify-start  gap-2 mt-4">
-                    <div class="flex items-center">
-                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
-                    </div>
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Tour Guide</p>
-                    </div>
-                </div>
-                <div class="flex justify-start  gap-2 mt-4">
-                    <div class="flex items-center">
-                        <img class="w-[15px] h-[15px]" src="assets/whitedot.png" alt="">
-                    </div>
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">First Aid</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div *ngIf="!noReview" class=" flex max-h-fit backdrop-blur rounded pb-4"
+        <div *ngIf="!noReview" class="w-full max-h-fit backdrop-blur rounded pb-4"
             style="background-color: rgba(126, 126, 126, 0.282);">
             <div *ngIf="overAllReview" class="flex flex-col justify-start basis-4/6 px-4 py-4">
                 <div class="flex justify-start   ">
@@ -238,29 +172,25 @@
                     <div class="flex border-2 rounded-full w-[40px] h-[40px]  items-center">
                         <a
                             class=" border-darkgray-300  mx-auto font-sans text-white text-[20px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
-                            {{overAllReview.averageRating}}</a>
+                            {{formatRating(overAllReview.averageRating)}}</a>
                     </div>
                     <div class="flex items-center flex-col">
                         <div class="flex justify-start items-center gap-[2px]">
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
+
+                            <!-- Full Stars -->
+                            <ng-container *ngFor="let star of fullStars">
+                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                            </ng-container>
+
+                            <!-- Half Star -->
+                            <img *ngIf="hasHalfStar" class="w-[7.5px] h-[15px]" src="assets/half-star.png"
+                                alt="half star">
 
                         </div>
-                        <p class="font-light font-sans text-[15px] ">Ratings</p>
+                        <p class="font-light font-sans text-[15px]">Ratings</p>
                     </div>
+
+
                 </div>
 
 
@@ -290,7 +220,7 @@
                     <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
                         <div class="flex self-start justify-start">
                             <a href=""
-                                class="border-2 bg-[url('assets/nandika.jpg')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                                class="border-2 bg-[url('assets/user.png')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
                             </a>
                         </div>
 
@@ -301,27 +231,14 @@
                                 </div>
                             </div>
                             <div class="flex justify-start  gap-[2px] ">
-                                <div class="flex items-center">
-                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                                </div>
-                                <div class="flex items-center">
-                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                                </div>
-                                <div class="flex items-center">
-                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                                </div>
-                                <div class="flex items-center">
-                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                                </div>
-                                <div class="flex items-center">
-                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                                </div>
-
+                                <ng-container *ngFor="let star of [].constructor(card.rating)">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                                </ng-container>
                             </div>
                             <div class="flex justify-start min-w-full gap-[2px] ">
 
                                 <div class="w-full  flex-col mt-4 border-2 rounded p-2">
-                                    <p class="px-2  font-semibold font-sans text-[15px]">Nice </p>
+                                    <p class="px-2  font-semibold font-sans text-[15px]">{{card.reviewTitle}}</p>
                                     <p class="px-2  font-light font-sans text-[15px]">{{card.reviewDescription}}</p>
 
                                 </div>
@@ -352,185 +269,5 @@
             </div>
 
         </div>
-
-
-
-        <div *ngIf="noReview" class=" flex max-h-fit backdrop-blur rounded pb-4"
-            style="background-color: rgba(126, 126, 126, 0.282);">
-            <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
-                <div class="flex justify-start   ">
-                    <h1 class=" font-sans font-bold text-xl mt-4 ">Testimonial</h1>
-
-                </div>
-                <div class="flex justify-start ">
-                    <p class="font-light font-sans text-[15px]">Overall reviews and ratings </p>
-
-                </div>
-
-                <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6">
-                    <div class="flex items-center">
-                        <a href=""
-                            class="border-2  border-darkgray-300 rounded-full px-2 py-1  font-sans text-white text-[20px]    transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
-                            4.4</a>
-                    </div>
-                    <div class="flex items-center flex-col">
-                        <div class="flex justify-start items-center gap-[2px]">
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-
-                        </div>
-                        <p class="font-light font-sans text-[15px] ">Ratings</p>
-                    </div>
-                </div>
-
-
-                <div class="flex justify-start  mt-4">
-
-                    <div class="flex justify-start  gap-2 mt-4">
-                        <div class="flex items-center">
-                            <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur
-                                adipiscing
-                                elit.
-                                Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
-                                Donec
-                                duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu
-                                fames
-                                sit
-                                lectus. Scelerisque id bibendum velit cras. </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-start  gap-2 mt-4">
-                    <div class="flex items-center">
-
-                        <img class="w-[15px] h-[15px]" src="assets/whitedate.png" alt="">
-                    </div>
-                    <div class="flex items-center">
-                        <p class="font-light font-sans text-[12px]">Available Now</p>
-                    </div>
-                </div>
-                <br>
-                <div class="w-full border-b-2">
-
-                </div>
-                <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
-                    <div class="flex self-start justify-start">
-                        <a href=""
-                            class="border-2 bg-[url('assets/nandika.jpg')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
-                        </a>
-                    </div>
-
-                    <div class="flex  flex-col">
-                        <div class="flex justify-start gap-[2px]">
-                            <div class="flex items-center">
-                                <p class="font-light font-sans text-[15px] ">Nandika</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-start  gap-[2px] ">
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-
-                        </div>
-                        <div class="flex justify-start min-w-full gap-[2px] ">
-
-                            <div class="flex flex-col mt-4 border-2 rounded p-2">
-                                <p class="px-2  font-semibold font-sans text-[15px]">Nice </p>
-                                <p class="px-2  font-light font-sans text-[15px]">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipiscing
-                                    elit.
-                                    Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales
-                                    egestas.
-                                    Donec
-                                    duis lacus, odio velit eu eget ac tortor. . </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-                <div class=" font-sans flex items-center md:flex items-center space-x-2 mt-6 ">
-                    <div class="flex self-start justify-start">
-                        <a href=""
-                            class="border-2 bg-[url('assets/rin.jpg')] bg-cover border-darkgray-300 rounded-full px-2 py-1  font-sans text-white w-[40px] h-[40px]  transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
-                        </a>
-                    </div>
-
-                    <div class="flex  flex-col">
-                        <div class="flex justify-start gap-[2px]">
-                            <div class="flex items-center">
-                                <p class="font-light font-sans text-[15px] ">Rin Hasegawa</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-start  gap-[2px] ">
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-                            <div class="flex items-center">
-                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="">
-                            </div>
-
-                        </div>
-                        <div class="flex justify-start min-w-full gap-[2px] ">
-
-                            <div class="flex flex-col mt-4 border-2 rounded p-2">
-                                <p class="px-2  font-semibold font-sans text-[15px]">Nice </p>
-                                <p class="px-2  font-light font-sans text-[15px]">Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipiscing
-                                    elit.
-                                    Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales
-                                    egestas.
-                                    Donec
-                                    duis lacus, odio velit eu eget ac tortor. . </p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-
-
     </div>
 </section>

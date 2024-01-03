@@ -20,7 +20,8 @@ router.post('/review/:paypalTransactionId', async (req, res) => {
             fullName: receipt.fullName,
             rating: reviewDetails.rating,
             reviewDescription: reviewDetails.reviewDescription,
-            paypalTransactionId: receipt.paypalTransactionId
+            paypalTransactionId: receipt.paypalTransactionId,
+            reviewTitle: reviewDetails.reviewTitle
         };
 
         const newReviewData = new Review(newReview);
@@ -40,6 +41,16 @@ router.get('/review/:productId', async (req, res) => {
     try {
         const productId = req.params.productId;
         const reviews = await Review.find({ productId: productId });
+        res.json(reviews);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
+router.get('/reviewOfMerchant/:merchantId', async (req, res) => {
+    try {
+        const merchantId = req.params.merchantId;
+        const reviews = await Review.find({ merchantId: merchantId });
         res.json(reviews);
     } catch (error) {
         res.status(500).json({ message: error.message });

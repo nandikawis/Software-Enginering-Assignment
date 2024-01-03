@@ -1,5 +1,5 @@
 import { Component, NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, ExtraOptions } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductPageComponent } from './product-page/product-page.component';
@@ -26,6 +26,7 @@ import { ApprovedDetailComponent } from './approved-detail/approved-detail.compo
 import { authGuard } from './auth.guard';
 import { RegistercustomerComponent } from './registercustomer/registercustomer.component';
 import { customerAuthGuard } from './guards/customer-auth.guard';
+import { officerAuthGuard } from './guards/officer-auth.guard';
 
 const routes: Routes = [
   {
@@ -52,13 +53,14 @@ const routes: Routes = [
           { path: 'Account', component: MerchantAccountComponent },
           { path: 'Product-Manage', component: ProductManagerComponent },
           { path: 'Reviews', component: MerchantReviewsComponent },
-          { path: 'Report', component: AnalyticReportComponent },
+          { path: 'Analytic-Report/:merchantId', component: AnalyticReportComponent },
           { path: 'Add-Product', component: AddProductComponent },
           { path: 'Edit-Product/:productId', component: EditProductComponent }
         ]
       },
       {
         path: 'Officer',
+        canActivate: [officerAuthGuard],
         component: OfficerPageComponent,
         children: [
           { path: '', redirectTo: 'Officer-Management', pathMatch: 'full' },
@@ -66,17 +68,22 @@ const routes: Routes = [
           { path: 'Review-Merchant', component: ReviewMerchantRegistrationComponent },
           { path: 'Detail-Merchant/:id', component: DetailMerchantRegistrationComponent },
           { path: 'Approved-Merchant', component: ApprovedMerchantComponent },
-          { path: 'Approved-Detail', component: ApprovedDetailComponent },
-          { path: 'Report', component: AnalyticReportComponent },
-          { path: 'Reviews', component: MerchantReviewsComponent }
+          { path: 'Approved-Detail/:merchantId', component: ApprovedDetailComponent },
+          { path: 'Merchant-Report/:merchantId', component: AnalyticReportComponent },
+
         ]
       }
     ]
   },
 ];
 
+const routerOption: ExtraOptions = {
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled'
+}
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' })],
+  imports: [RouterModule.forRoot(routes, routerOption)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

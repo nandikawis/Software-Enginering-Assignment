@@ -3,6 +3,7 @@ import { Renderer2, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MerchantService } from '../services/merchant.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-merchant-page',
   templateUrl: './merchant-page.component.html',
@@ -12,13 +13,15 @@ export class MerchantPageComponent {
   showModal: boolean = false;
   loginForm: FormGroup;
   merchant: any;
+  loginAlert: boolean = false;
 
   constructor(
     private renderer: Renderer2,
     private el: ElementRef,
     private formBuilder: FormBuilder,
     private merchantService: MerchantService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -46,11 +49,9 @@ export class MerchantPageComponent {
             this.merchantService.getMerchantByEmail(this.loginForm.value.email).subscribe({
               next: (data: any) => {
                 this.merchant = data;
-                sessionStorage.setItem('merchantId', this.merchant.merchantId);
-                sessionStorage.setItem('email', this.loginForm.value.email);
-                sessionStorage.setItem('token', response.token);
-                const a = sessionStorage.getItem('merchantId');
-                console.log('Retrive Merchant ID', a);
+
+                this.authService.loginMerchant(response.token, this.merchant.merchantId, this.loginForm.value.email);
+
                 this.router.navigate(['/Management']); // Navigate to the protected route
               },
               error: (error: any) => {
@@ -63,9 +64,12 @@ export class MerchantPageComponent {
           },
           error: (error) => {
             console.error('Login failed', error);
-            // Handle login error (show message to user)
+            this.loginAlert = true;
           }
         });
     }
+  }
+  closeLoginAlert() {
+    this.loginAlert = false;
   }
 }

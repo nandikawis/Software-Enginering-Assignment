@@ -9,6 +9,7 @@ import {
 import { ProductService } from '../services/product.service';
 import { ReceiptService } from '../services/receipt.service';
 import { MerchantService } from '../services/merchant.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-analytic-report',
@@ -30,7 +31,7 @@ export class AnalyticReportComponent {
     // This can be dynamically adjusted if needed
   };
   public chartXaxis: ApexXAxis = {
-    categories: ['Revenue'],
+    categories: ['Revenue in $'],
     labels: {
       style: {
         colors: ['#FFFFFF']
@@ -41,67 +42,71 @@ export class AnalyticReportComponent {
 
 
 
-  constructor(private merchantService: MerchantService, private productService: ProductService, private receiptService: ReceiptService) { }
+  constructor(private route: ActivatedRoute, private merchantService: MerchantService, private productService: ProductService, private receiptService: ReceiptService) { }
 
   ngOnInit(): void {
-    const merchantId = sessionStorage.getItem('merchantId');
-    if (merchantId) {
-      this.merchantService.getMerhcantByMerchantId(merchantId).subscribe({
-        next: (data: any) => {
-          this.merchant = data;
-        },
-        error: (error: any) => {
-          console.error('Error fetching merchant:', error);
-        }
-      });
-    } else {
-      console.error('No email found in session storage');
-    }
-    if (merchantId) {
-      this.productService.getProductsByMerchantId(merchantId).subscribe(products => {
-        // Initialize total variables
-        let productPromises = [];
+    this.route.params.subscribe(params => {
+      const merchantId = params['merchantId'];
+      console.log('Retrieved merchant ID:', merchantId);
 
-        // Step 2: Loop through each product
-        for (const product of products) {
-          // Step 2a: Fetch all receipts for the current product
-          const receiptPromise = this.receiptService.getReceiptsByProductId(product.productId).toPromise();
+      if (merchantId) {
+        this.merchantService.getMerchantByMerchantId(merchantId).subscribe({
+          next: (data: any) => {
+            this.merchant = data;
+          },
+          error: (error: any) => {
+            console.error('Error fetching merchant:', error);
+          }
+        });
+      } else {
+        console.error('No email found in session storage');
+      }
+      if (merchantId) {
+        this.productService.getProductsByMerchantId(merchantId).subscribe(products => {
+          // Initialize total variables
+          let productPromises = [];
 
-          // Step 2b: Push the promise to the array
-          productPromises.push(receiptPromise);
+          // Step 2: Loop through each product
+          for (const product of products) {
+            // Step 2a: Fetch all receipts for the current product
+            const receiptPromise = this.receiptService.getReceiptsByProductId(product.productId).toPromise();
 
-          // Step 2c: Initialize product stats object
-          const productStat = {
-            productId: product.productId,
-            name: product.productName,
-            productSold: 0,
-            revenue: 0
-          };
+            // Step 2b: Push the promise to the array
+            productPromises.push(receiptPromise);
 
-          // Step 2d: Add the product stats object to the array
-          this.productStats.push(productStat);
-        }
+            // Step 2c: Initialize product stats object
+            const productStat = {
+              productId: product.productId,
+              name: product.productName,
+              productSold: 0,
+              revenue: 0
+            };
 
-        // Step 3: Handle all promises after all products are processed
-        Promise.all(productPromises).then(receiptsArray => {
-          // Step 3a: Calculate product sold and revenue for each product
-          receiptsArray.forEach((receipts, index) => {
-            const productSold: number = receipts.length;
-            const productRevenue: number = receipts.reduce((total: number, receipt: any) => total + (receipt.price ?? 0), 0);
+            // Step 2d: Add the product stats object to the array
+            this.productStats.push(productStat);
+          }
+
+          // Step 3: Handle all promises after all products are processed
+          Promise.all(productPromises).then(receiptsArray => {
+            // Step 3a: Calculate product sold and revenue for each product
+            receiptsArray.forEach((receipts, index) => {
+              const productSold: number = receipts.length;
+              const productRevenue: number = receipts.reduce((total: number, receipt: any) => total + (receipt.price ?? 0), 0);
 
 
-            // Step 3b: Update product stats
-            this.productStats[index].productSold = productSold;
-            this.productStats[index].revenue = productRevenue;
+              // Step 3b: Update product stats
+              this.productStats[index].productSold = productSold;
+              this.productStats[index].revenue = productRevenue;
 
-            // Step 3c: Update total variables
-            this.totalProductSold += productSold;
-            this.totalRevenue += productRevenue;
-            this.updateChartSalesData();
+              // Step 3c: Update total variables
+              this.totalProductSold += productSold;
+              this.totalRevenue += productRevenue;
+              this.updateChartSalesData();
+            });
           });
         });
-      });
-    }
+      }
+    });
   }
 
   private updateChartSalesData(): void {

@@ -11,6 +11,12 @@ export class MerchantService {
 
   constructor(private http: HttpClient) { }
 
+
+  getMerchantByStatus(status: string): Observable<any> {
+    let params = new HttpParams().set('status', status);
+    return this.http.get(`${this.baseUrl}/status`, { params });
+  }
+
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
@@ -46,13 +52,17 @@ export class MerchantService {
     return this.http.get(`${this.baseUrl}/email`, { params });
   }
 
-  getMerhcantByMerchantId(merchantId: string): Observable<any> {
+  getMerchantByMerchantId(merchantId: string): Observable<any> {
     let params = new HttpParams().set('merchantId', merchantId);
     return this.http.get(`${this.baseUrl}/merchantId`, { params });
   }
 
   approveMerchant(_id: string): Observable<any> {
     return this.http.put(`${this.baseUrl}/approve`, { _id });
+  }
+
+  rejectMerchant(_id: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/reject`, { _id });
   }
 
   changeMerchantPassword(email: string, newpassword: string): Observable<any> {

@@ -1,4 +1,10 @@
 <div class="flex flex-col  min-w-full gap-3 mx-auto side:justify-self-center items-center ">
+    <div *ngIf="cards.length == 0" class="flex self-start mt-4">
+        <h1
+            class="text-xl text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
+            You have no product yet, add you product and start your journey . . .
+        </h1>
+    </div>
     <div class="flex self-start mt-4">
         <button routerLink="/Add-Product" type="Add"
             class="bg-darkgray text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
@@ -6,10 +12,10 @@
         </button>
     </div>
     <ng-container *ngFor="let card of cardsForCurrentPage">
-        <div class="max-w-sm w-full bg-blue-500 sides:max-w-full sides:flex">
-            <img class="h-48 sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
-                [src]="card.imageData" alt="Image">
 
+        <div class="max-w-sm w-full bg-blue-500 sides:max-w-full sides:flex">
+            <img class="h-48 w-full sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
+                [src]="card.imageData" alt="Image">
             <div
                 class="border-r border-b border-l w-full border-gray-400 sides:border-l-0 sides:border-t sides:border-gray-400 bg-white rounded-b sides:rounded-b-none sides:rounded-r p-4 flex flex-col justify-between leading-normal">
                 <div class="mb-8">
@@ -21,27 +27,76 @@
                     <p class="text-gray-700 text-base">{{card.productDescription}}</p>
 
                 </div>
-                <div class="flex justify-between">
+                <div class="flex side:flex-col justify-between">
 
                     <div class="text-sm">
                         <p class="text-gray-900 leading-none">{{card.price}}</p>
-                        <p class="text-gray-600">{{card.averageRating}}</p>
-                        <p class="text-gray-600">{{card.numberOfRatings}}</p>
+                        <div
+                            class="flex items-center side:w-fit rounded-full text-sm font-semibold text-white bg-black px-3 mt-4 ">
+                            <div class="flex justify-start items-center">
+                                <!-- Full Stars -->
+                                <ng-container *ngFor="let star of getfullStars(card.averageRating)">
+                                    <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                                </ng-container>
+
+                                <!-- Half Star -->
+                                <img *ngIf="gethasHalfStar(card.averageRating)" class="w-[7.5px] h-[15px]"
+                                    src="assets/half-star.png" alt="half star">
+                            </div>
+
+                            <div class="flex items-center ">
+                                <p class="font-light font-sans text-[12px]">
+                                    ({{formatRating(card.averageRating)}}) | ({{card.numberOfRatings}}) Reviews
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <button (click)="navigateToEdit(card.productId)"
                         class=" font-sans flex justify-end md:flex  space-x-5 "
                         class="border-2 mt-3.5 border-darkgray rounded-full font-sans font-bold text-darkgray text-[15px]  px-5  transition duration-300 ease-in-out hover:bg-darkgray hover:text-lightgray ">
                         edit</button>
-                    <a routerLink="" class=" font-sans flex justify-end md:flex  space-x-5 "
+                    <button (click)="openConfirmModal()" class=" font-sans flex justify-end md:flex  space-x-5 "
                         class="border-2 mt-3.5 border-darkgray rounded-full font-sans font-bold text-darkgray text-[15px]  px-5  transition duration-300 ease-in-out hover:bg-red hover:text-lightgray ">
-                        delete</a>
+                        delete</button>
 
+                </div>
+            </div>
+            <div *ngIf="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+                <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                    <div class="mt-3 text-center">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Are you sure to delete this product?
+                        </h3>
+                        <div class="justify-between gap-2 px-4 py-3">
+                            <button (click)="closeConfirmModal()"
+                                class="px-4 py-2 bg-red-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-300">
+                                Cancel
+                            </button>
+                            <button (click)="deleteProduct(card.productId)"
+                                class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                                Continue Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="deleteModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+                <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                    <div class="mt-3 text-center">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Product has been deleted</h3>
+
+                        <div class="items-center px-4 py-3">
+                            <button routerLink="/Product-Manage" (click)="closeDeleteModal()"
+                                class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                                Close
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </ng-container>
-    <div class="pagination-controls flex justify-center items-center space-x-2 my-4">
+    <div *ngIf="cards.length > 0" class="pagination-controls flex justify-center items-center space-x-2 my-4">
         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
             (click)="goToPrevious()" [disabled]="currentPage === 1">
             Prev
