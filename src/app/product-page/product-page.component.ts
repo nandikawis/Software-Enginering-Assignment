@@ -24,7 +24,7 @@ interface Review {
 })
 export class ProductPageComponent {
   cards: any[] = []
-
+  menuVisible: boolean = false;
   public pageSize = 5;
   public currentPage = 1;
   public totalPages: number;
@@ -49,6 +49,11 @@ export class ProductPageComponent {
       }
     });
   }
+
+  toggleSidebar() {
+    this.menuVisible = !this.menuVisible;
+  }
+
 
 
   ngOnInit(): void {
@@ -88,6 +93,7 @@ export class ProductPageComponent {
                 productId: product.productId,
                 productName: product.productName,
                 productDescription: product.productDescription,
+                price: product.price,
                 imageId: product.imageId,
                 filename: product.filename,
                 imageData: reader.result,
@@ -128,12 +134,24 @@ export class ProductPageComponent {
     );
   }
 
+  getfullStars(rating: number) {
+    return new Array(Math.floor(rating));
+  }
+
+  gethasHalfStar(rating: number) {
+    return rating % 1 >= 0.5;
+  }
+
   navigateToDetail(productId: string): void {
     if (!productId) {
       console.error('Product ID is undefined or null');
       return;
     }
     this.router.navigate(['/Details', productId]);
+  }
+
+  formatRating(rating: number): string {
+    return rating.toFixed(1);
   }
 
   public get cardsForCurrentPage(): any[] {

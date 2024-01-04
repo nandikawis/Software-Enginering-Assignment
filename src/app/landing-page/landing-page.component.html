@@ -28,19 +28,19 @@
             </div>
         </div>
     </div>
-    <div class="max-w-6xl flex flex-row min-h-[70vh] mx-auto  justify-between items-center mt-4 ">
+    <div class="side:pr-10 side:pl-10 max-w-6xl flex flex-row min-h-[70vh] mx-auto  justify-between items-center mt-4 ">
         <div class="flex-col border-2 border-transparent max-w-lg">
             <h1 class=" font-sans font-bold text-3xl mt-4 ">LOOK AROUND THE TOURISM IN MALAYSIA</h1>
             <p>With in our jorney to provide you a really helpfull system to get your vacation from
                 anywhere and
                 everywhere easlly</p>
             <div class=" font-sans flex items-center md:flex items-center space-x-5">
-                <a href=""
+                <button (click)="scrollToSection('explore')"
                     class="border-2 mt-5 border-darkgray-300 rounded font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
-                    Login</a>
+                    Explore</button>
             </div>
         </div>
-        <div class="relative max-w-[50%]  flex rounded  grid grid-cols-6 ">
+        <div class="hidden md:relative md:max-w-[50%]  md:flex md:rounded  md:grid md:grid-cols-6 ">
             <div class="col-start-1 col-span-4 ">
 
                 <img class=" w-full h-full " src="https://source.unsplash.com/1000x600?malaysia" alt="">
@@ -52,7 +52,8 @@
         </div>
     </div>
 </section>
-<section class="flex flex-col mx-auto bg-black text-white max-h-[40rem] z-0  px-10 py-10">
+<section id="explore"
+    class="flex flex-col mx-auto bg-black  text-white max-h-[40rem] side:max-h-[22rem] z-0  px-10 py-10">
     <div class="max-w-6xl mx-auto">
 
         <h1 class="text-xl font-semibold">Top Destinations</h1>
@@ -64,7 +65,7 @@
                         <div class="mx-auto max-w-4xl rounded overflow-hidden shadow-lg h-[24rem]">
                             <a href="">
 
-                                <img class="w-full" [src]="images.image">
+                                <img class="w-full" [src]="images.imageData">
                             </a>
                         </div>
                     </div>
@@ -72,11 +73,11 @@
             </div>
 
             <button (click)="prevSlidePromo()"
-                class="absolute top-1/2 left-0 -translate-y-1/2 bg-transparent hover:bg-gray-200 text-black rounded-full w-[50px] h-[50px] flex items-center justify-center text-lg">
+                class="absolute top-1/2 side:top-1/4 left-0 -translate-y-1/2 bg-transparent hover:bg-gray-200 text-black rounded-full w-[50px] h-[50px] flex items-center justify-center text-lg">
                 <img class="w-8 h-8" src="assets/prev.png" alt="">
             </button>
             <button (click)="nextSlidePromo()"
-                class="absolute top-1/2 right-0 -translate-y-1/2 bg-transparent hover:bg-gray-200 text-black rounded-full w-[50px] h-[50px] flex items-center justify-center text-lg">
+                class="absolute top-1/2 side:top-1/4 right-0 -translate-y-1/2 bg-transparent hover:bg-gray-200 text-black rounded-full w-[50px] h-[50px] flex items-center justify-center text-lg">
                 <img class="w-8 h-8" src="assets/next.png" alt="">
             </button>
         </div>
@@ -87,26 +88,53 @@
 <section class="flex-col z-0 mx-auto bg-black text-white  max-h-[40rem] px-10 py-10">
     <div class="max-w-6xl mx-auto">
         <div>
-            <h1 class="text-xl font-semibold">Top Trending Products</h1>
+            <h1 class="text-xl font-semibold">Top Shopping</h1>
         </div>
 
         <div class="relative max-w-6xl mx-auto overflow-hidden text-black min-h-fit backdrop-blur rounded"
             style="background-color: rgba(240, 248, 255, 0.233);">
-            <div class="flex transition-transform duration-500 "
-                [style.transform]="'translateX(-' + activeSlideIndex * (100 / 3) + '%)'">
+            <div class="flex transition-transform duration-500 " [style.transform]="transformValueTop">
                 <ng-container *ngFor="let card of cards">
-                    <div class="flex-none w-1/3 p-2 ">
-                        <div class="max-w-sm rounded overflow-hidden shadow-lg bg-lightgray">
-                            <img class="w-full" [src]="card.image" [alt]="card.title">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2">{{ card.title }}</div>
-                                <p class="text-gray-700 text-base">{{ card.content }}</p>
+                    <div class="flex-none  w-full md:w-1/3 p-2 ">
+                        <div class="max-w-sm rounded overflow-hidden bg-lightgray shadow-lg flex flex-col h-full">
+                            <img class="w-full h-28 md:h-48  object-cover" [src]="card.imageData" [alt]="card.filename">
+                            <div class="px-6 py-4 flex flex-col justify-between flex-grow">
+                                <div class="font-bold text-xl mb-2 truncate">{{ card.productName }}</div>
+                                <p class="text-gray-700 text-base overflow-hidden text-ellipsis"
+                                    style="-webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical;">
+                                    {{ card.productDescription }}</p>
                             </div>
-                            <div class="px-6 pt-4 pb-2">
-                                <span *ngFor="let tag of card.tags"
-                                    class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{
-                                    tag }}</span>
+                            <div class="w-full  flex justify-between items-center py-2 px-6">
+                                <!-- Left Section - Reviews -->
+                                <div
+                                    class="flex items-center rounded-full text-sm font-semibold text-white bg-black px-3  mb-2">
+                                    <div class="flex justify-start items-center">
+                                        <!-- Full Stars -->
+                                        <ng-container *ngFor="let star of getfullStars(card.averageRating)">
+                                            <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                                        </ng-container>
+
+                                        <!-- Half Star -->
+                                        <img *ngIf="gethasHalfStar(card.averageRating)" class="w-[7.5px] h-[15px]"
+                                            src="assets/half-star.png" alt="half star">
+                                    </div>
+
+                                    <div class="flex items-center ">
+                                        <p class="font-light font-sans text-[12px]">
+                                            ({{formatRating(card.averageRating)}}) | ({{card.numberOfRatings}}) Reviews
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Right Section - View -->
+                                <button (click)="navigateToDetails(card.productId)"
+                                    class="flex items-center rounded-full text-white bg-black px-3  mb-2">
+                                    <p class="font-light font-sans text-[12px]">
+                                        view
+                                    </p>
+                                </button>
                             </div>
+
                         </div>
                     </div>
                 </ng-container>
@@ -129,24 +157,57 @@
         <!-- Carousel container -->
         <div class="relative max-w-6xl mx-auto overflow-hidden min-h-fit backdrop-blur rounded"
             style="background-color: rgba(240, 248, 255, 0.233);">
-            <div class="flex transition-transform duration-500"
-                [style.transform]="'translateX(-' + popularSlideIndex * (100 / 3) + '%)'">
+            <div class="flex transition-transform duration-500" [style.transform]="transformValuePop">
                 <ng-container *ngFor="let pop of popular">
-                    <div class="flex-none w-1/3 p-2 text-black">
-                        <div class="max-w-sm rounded overflow-hidden bg-lightgray shadow-lg">
-                            <img class="w-full" [src]="pop.image" [alt]="pop.title">
-                            <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2">{{ pop.title }}</div>
-                                <p class="text-gray-700 text-base">{{ pop.content }}</p>
+                    <div class="flex-none w-full md:w-1/3 p-2 text-black">
+                        <div class="max-w-sm rounded overflow-hidden bg-lightgray shadow-lg flex flex-col h-full">
+                            <!-- Image with fixed height and object cover -->
+                            <img class="w-full h-28 md:h-48 object-cover" [src]="pop.imageData" [alt]="pop.filename">
+
+                            <div class="px-6 py-4 flex flex-col justify-between flex-grow">
+                                <!-- Truncate product name to one line -->
+                                <div class="font-bold text-xl mb-2 truncate">{{ pop.productName }}</div>
+
+                                <!-- Truncate product description to a specific number of lines (e.g., 3 lines here) -->
+                                <p class="text-gray-700 text-base overflow-hidden text-ellipsis"
+                                    style="-webkit-line-clamp: 3; display: -webkit-box; -webkit-box-orient: vertical;">
+                                    {{ pop.productDescription }}</p>
                             </div>
-                            <div class="px-6 pt-4 pb-2">
-                                <span *ngFor="let tag of pop.tags"
-                                    class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{
-                                    tag }}</span>
+
+                            <div class="w-full  flex justify-between items-center py-2 px-6">
+                                <!-- Left Section - Reviews -->
+                                <div
+                                    class="flex items-center rounded-full text-sm font-semibold text-white bg-black px-3  mb-2">
+                                    <div class="flex justify-start items-center">
+                                        <!-- Full Stars -->
+                                        <ng-container *ngFor="let star of getfullStars(pop.averageRating)">
+                                            <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                                        </ng-container>
+
+                                        <!-- Half Star -->
+                                        <img *ngIf="gethasHalfStar(pop.averageRating)" class="w-[7.5px] h-[15px]"
+                                            src="assets/half-star.png" alt="half star">
+                                    </div>
+
+                                    <div class="flex items-center ">
+                                        <p class="font-light font-sans text-[12px]">
+                                            ({{formatRating(pop.averageRating)}}) | ({{pop.numberOfRatings}}) Reviews
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Right Section - View -->
+                                <button (click)="navigateToDetails(pop.productId)"
+                                    class="flex items-center rounded-full text-white bg-black px-3  mb-2">
+                                    <p class="font-light font-sans text-[12px]">
+                                        view
+                                    </p>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </ng-container>
+
             </div>
 
             <button (click)="prevSlidePop()"

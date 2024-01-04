@@ -48,6 +48,14 @@ export class ProductDetailComponent {
 
   promoSlideIndex: number = 0;
 
+  get fullStars() {
+    return new Array(Math.floor(this.overAllReview.averageRating));
+  }
+
+  get hasHalfStar() {
+    return this.overAllReview.averageRating % 1 >= 0.5;
+  }
+
   get currentPromotion(): Promotion[] {
     return this.promo.slice(this.promoSlideIndex, this.promoSlideIndex + 1);
   }
@@ -135,6 +143,10 @@ export class ProductDetailComponent {
 
   }
 
+  formatRating(rating: number): string {
+    return rating.toFixed(1);
+  }
+
   checkLoggedIn(productId: string) {
     if (!this.loggedIn) {
       this.showModal = true;
@@ -155,7 +167,7 @@ export class ProductDetailComponent {
             this.customerService.getCustomerByEmail(this.loginForm.value.email).subscribe({
               next: (data: any) => {
 
-                this.authService.login(response.token, data.customerId, this.loginForm.value.email);
+                this.authService.loginCustomer(response.token, data.customerId, this.loginForm.value.email);
                 this.router.navigate(['/Details', this.product.productId]);
               },
               error: (error: any) => {

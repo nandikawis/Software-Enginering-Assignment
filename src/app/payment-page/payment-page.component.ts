@@ -6,10 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
-
-
-declare let paypal: any; // Declare PayPal's global variable
-
+declare let paypal: any;
 @Component({
   selector: 'app-payment-page',
   templateUrl: './payment-page.component.html',
@@ -30,8 +27,6 @@ export class PaymentPageComponent implements AfterViewInit {
     private receiptService: ReceiptService,
     private route: ActivatedRoute
   ) { }
-
-
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const id = params['orderId'];
@@ -43,7 +38,7 @@ export class PaymentPageComponent implements AfterViewInit {
           console.error('Error fetching merchant:', error);
         },
         complete: () => {
-          // Optional: Any cleanup or final actions when the Observable completes
+
         }
       });
     });
@@ -53,10 +48,6 @@ export class PaymentPageComponent implements AfterViewInit {
     setTimeout(() => this.initializePaypalButtons(), 500);
 
   }
-
-
-
-
   initializePaypalButtons(): void {
     paypal.Buttons({
       createOrder: (data: any, actions: any) => {
@@ -74,7 +65,6 @@ export class PaymentPageComponent implements AfterViewInit {
           console.log('Transaction', details);
           this.receiptService.captureOrder(this.purchase.orderId, details).subscribe({
             next: (response) => {
-              // Handle the response
               console.log('Receipt saved', response);
 
               const dataR = {
@@ -89,7 +79,6 @@ export class PaymentPageComponent implements AfterViewInit {
               this.showModal = true;
             },
             error: (error) => {
-              // Handle errors
               console.error('Error capturing order:', error);
             }
           });
@@ -103,26 +92,24 @@ export class PaymentPageComponent implements AfterViewInit {
 
   openModal() {
     this.showModal = true;
-    this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
+
   }
 
   closeModal() {
     this.showModal = false;
 
-    this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
-    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
+
   }
   closeReceipt() {
-    this.showReceiptModal = false;
-    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
+    this.showModal = false;
+
   }
   downloadReceiptAsPDF() {
     const DATA = this.receiptContent.nativeElement;
-    const pdfFormat = 'a4'; // or use specific dimensions
-
+    const pdfFormat = 'a4';
     html2canvas(DATA, {
       useCORS: true,
-      scale: 1 // You might adjust the scale for better resolution
+      scale: 1
     }).then(canvas => {
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;

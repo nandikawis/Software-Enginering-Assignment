@@ -17,4 +17,8 @@ export class ReviewService {
     return this.http.get(`${this.BaseUrl}/review/${productId}`);
   }
 
+  getReviewsByMerchantId(merchantId: string): Observable<any> {
+    return this.http.get(`${this.BaseUrl}/reviewOfMerchant/${merchantId}`);
+  }
+
 }

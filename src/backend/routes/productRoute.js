@@ -7,6 +7,25 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const mongoose = require('mongoose');
 
+
+
+router.put('/deleteProduct', async (req, res) => {
+    try {
+        const { productId } = req.body;
+        const product = await Product.findOne({ productId: productId });
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        product.status = 'deleted';
+        await product.save();
+
+        res.json({ message: 'Product Deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
 router.get('/downloadById/:id/:filename', async (req, res) => {
     try {
         const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db);
@@ -89,13 +108,26 @@ router.get('/merchantId', async (req, res) => {
     }
 });
 
+router.get('/merchantIdAndStatus', async (req, res) => {
+    try {
+        const merchantId = req.query.merchantId;
+        const status = 'available';
+        const products = await Product.find({ merchantId: merchantId, status: status });
+        if (!products) return res.status(404).json({ message: 'Merchant not found' });
+        res.json(products);
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
 
 
 // GET route to fetch the product by category
 router.get('/category', async (req, res) => {
     try {
         const category = req.query.category; // Use req.query instead of req.params
-        const products = await Product.find({ category: category });
+        const status = 'available';
+        const products = await Product.find({ category: category, status: status });
 
         if (!products.length) {
             return res.status(404).json({ message: 'No products found in this category' });
@@ -118,6 +150,8 @@ router.get('/productId', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+
 
 router.put('/editProduct/:productId', async (req, res) => {
     try {
@@ -144,8 +178,9 @@ router.put('/editProduct/:productId', async (req, res) => {
 
 // GET route to fetch all products
 router.get('/', async (req, res) => {
+    const status = 'available';
     try {
-        const products = await Product.find();
+        const products = await Product.find({ status: status });
         res.json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
@@ -156,6 +191,7 @@ router.get('/', async (req, res) => {
 // GET route to fetch a single product by ID
 router.get('/:id', async (req, res) => {
     try {
+
         const product = await Product.findById(req.params.id);
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });

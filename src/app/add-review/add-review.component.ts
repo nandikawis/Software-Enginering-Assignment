@@ -19,6 +19,8 @@ export class AddReviewComponent {
   confirmReview: boolean = false;
   review: any;
   theId: string;
+  showAlert: boolean = false;
+  reviewTitle: string;
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private router: Router, private receiptService: ReceiptService, private reviewService: ReviewService) { }
 
@@ -56,19 +58,16 @@ export class AddReviewComponent {
     this.selectedRating = value;
   }
 
-  confirmation(): void {
-    this.confirmReview = true;
-  }
-
-  cancel(): void {
-    this.confirmReview = false;
+  setTitle(value: string): void {
+    this.reviewTitle = value;
   }
 
   addReview() {
 
     this.review = {
       "rating": this.rating,
-      "reviewDescription": this.reviewForm.value.description
+      "reviewDescription": this.reviewForm.value.description,
+      "reviewTitle": this.reviewTitle
     }
 
     console.log("here is data: ", this.review)
@@ -77,8 +76,16 @@ export class AddReviewComponent {
       this.reviewService.addReview(this.theId, this.review).subscribe({
         next: (res) => {
           console.log(res);
+          this.receiptService.editReviewStatus(this.theId).subscribe({
+            next: (res) => {
+              console.log(res);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          })
           this.confirmReview = false;
-
+          this.showAlert = true;
         },
         error: (err) => {
           console.log(err);
@@ -87,5 +94,18 @@ export class AddReviewComponent {
     }
 
   }
+
+  confirmation(): void {
+    this.confirmReview = true;
+  }
+
+  cancel(): void {
+    this.confirmReview = false;
+  }
+
+  closeAlert() {
+    this.showAlert = false;
+  }
+
 
 }

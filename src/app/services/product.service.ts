@@ -34,6 +34,11 @@ export class ProductService {
     return this.http.get(`${this.baseUrl}/merchantId`, { params });
   }
 
+  getProductsByMerchantIdAndStatus(merchantId: string): Observable<any> {
+    let params = new HttpParams().set('merchantId', merchantId);
+    return this.http.get(`${this.baseUrl}/merchantIdAndStatus`, { params });
+  }
+
   getProductByProductId(productId: string): Observable<any> {
     let params = new HttpParams().set('productId', productId);
     return this.http.get(`${this.baseUrl}/productId`, { params });
@@ -51,6 +56,10 @@ export class ProductService {
   getProductByCategory(category: string): Observable<any> {
     let params = new HttpParams().set('category', category);
     return this.http.get(`${this.baseUrl}/category`, { params });
+  }
+
+  deleteProduct(productId: string): Observable<any> {
+    return this.http.put(`${this.baseUrl}/deleteProduct`, { productId });
   }
 
 }

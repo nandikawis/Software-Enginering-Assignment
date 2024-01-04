@@ -33,7 +33,7 @@ export class MerchantAccountComponent implements OnInit {
   ngOnInit(): void {
     const merchantId = sessionStorage.getItem('merchantId');
     if (merchantId) {
-      this.merchantService.getMerhcantByMerchantId(merchantId).subscribe({
+      this.merchantService.getMerchantByMerchantId(merchantId).subscribe({
         next: (data: any) => {
           this.merchant = data;
           // Set the async validator now that we have the data

@@ -37,16 +37,6 @@ export class OrderComponent {
     });
   }
 
-  openReceipt() {
-    this.showReceipt = true
-    this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
-  }
-
-  closeReceipt() {
-    this.showReceipt = false
-    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
-  }
-
   navigateToReview(paypalTransactionId: string) {
     this.router.navigate(['/Give-Review', paypalTransactionId]);
   }
@@ -54,11 +44,11 @@ export class OrderComponent {
 
   downloadReceiptAsPDF() {
     const DATA = this.receiptContent.nativeElement;
-    const pdfFormat = 'a4'; // or use specific dimensions
+    const pdfFormat = 'a4';
 
     html2canvas(DATA, {
       useCORS: true,
-      scale: 1 // You might adjust the scale for better resolution
+      scale: 1
     }).then(canvas => {
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
@@ -73,6 +63,16 @@ export class OrderComponent {
       pdf.save('purchase-receipt.pdf');
     });
   }
+  openReceipt() {
+    this.showReceipt = true
+    this.renderer.addClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
+  }
+
+  closeReceipt() {
+    this.showReceipt = false
+    this.renderer.removeClass(this.el.nativeElement.ownerDocument.body, 'overflow-hidden');
+  }
+
 
   public get cardsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;

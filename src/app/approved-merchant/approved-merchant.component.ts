@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MerchantService } from '../services/merchant.service';
+import { Router } from '@angular/router';
 interface ProductData {
   image: string;
   title: string;
@@ -16,78 +18,32 @@ interface ProductData {
   styleUrls: ['./approved-merchant.component.css']
 })
 export class ApprovedMerchantComponent {
-  cards: ProductData[] = [
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-    {
-      image: 'https://source.unsplash.com/1000x600?promotion',
-      title: 'Product Title',
-      member: 'Rating',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.',
-      heading: 'Can Coffee make you a better developer?',
-      authorImage: 'aa',
-      authorName: 'nandika',
-      date: 'Nov 25'
-    },
-
-  ];
+  cards: any[] = [];
   public pageSize = 5;
   public currentPage = 1;
   public totalPages: number;
 
-  constructor() {
+  constructor(private merchantService: MerchantService, private router: Router) {
     this.totalPages = Math.ceil(this.cards.length / this.pageSize);
-  }
+    this.navigateToDetail = this.navigateToDetail.bind(this);
 
-  public get cardsForCurrentPage(): ProductData[] {
+  }
+  ngOnInit(): void {
+    const status = 'accepted';
+    this.merchantService.getMerchantByStatus(status).subscribe({
+      next: (data) => {
+        this.cards = data;
+        this.totalPages = Math.ceil(this.cards.length / this.pageSize);
+      },
+      error: (error) => {
+        console.error('Error fetching merchants', error);
+      },
+      complete: () => {
+        // Optional: Code to run on completion
+      }
+    });
+  }
+  public get cardsForCurrentPage(): any[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     return this.cards.slice(startIndex, startIndex + this.pageSize);
   }
@@ -107,5 +63,21 @@ export class ApprovedMerchantComponent {
       this.currentPage--;
     }
   }
+
+  selectedStatus: string = 'Rejected'; // Default value
+
+  updateStatus(newStatus: string): void {
+    this.selectedStatus = newStatus;
+  }
+
+  navigateToDetail(merchantId: string): void {
+    if (!merchantId) {
+      console.error('Merchant ID is undefined or null');
+      return;
+    }
+    this.router.navigate(['/Officer/Approved-Detail', merchantId]);
+  }
+
+
 
 }

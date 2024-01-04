@@ -19,7 +19,7 @@
                         </div>
                         <div class="justify-start flex "></div>
                         <div class="mb-4">
-                            <label for="Price" class="block  text-sm font-semibold mb-2">USD {{card.price}}
+                            <label for="Price" class="block  text-sm font-semibold mb-2">$ {{card.price}}
                             </label>
                             <div class="border-b-2 w-[10rem]">
 
@@ -36,10 +36,15 @@
 
 
                         <div class="flex justify-end gap-3">
-                            <button (click)="navigateToReview(card.paypalTransactionId)"
-                                class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
-                                Review
+                            <button [disabled]="card.reviewStatus === 'reviewed'"
+                                (click)="card.reviewStatus === 'pending' ? navigateToReview(card.paypalTransactionId) : null"
+                                [ngClass]="{
+          'bg-darkgreen hover:bg-green-700 focus:ring focus:ring-blue-300': card.reviewStatus === 'pending',
+          'bg-gray-500 cursor-not-allowed': card.reviewStatus === 'reviewed'
+        }" class="text-white px-6 py-2 rounded-md focus:outline-none">
+                                {{ card.reviewStatus === 'pending' ? 'Review' : 'Reviewed' }}
                             </button>
+
                             <button (click)="openReceipt()"
                                 class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
                                 View Reciept
@@ -49,6 +54,7 @@
                     </div>
 
                 </div>
+
                 <div *ngIf="showReceipt"
                     class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
 
@@ -105,6 +111,23 @@
 
             </div>
         </ng-container>
+        <div *ngIf="cards.length > 0" class="pagination-controls flex justify-center items-center space-x-2 my-4">
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+                (click)="goToPrevious()" [disabled]="currentPage === 1">
+                Prev
+            </button>
+
+            <button *ngFor="let page of [].constructor(totalPages); let i = index"
+                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+                (click)="goToPage(i + 1)" [class.bg-darkgray]="currentPage === i + 1">
+                {{ i + 1 }}
+            </button>
+
+            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+                (click)="goToNext()" [disabled]="currentPage === totalPages">
+                Next
+            </button>
+        </div>
 
     </div>
 </section>

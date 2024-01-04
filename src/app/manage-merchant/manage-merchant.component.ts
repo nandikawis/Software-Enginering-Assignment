@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MerchantService } from '../services/merchant.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-manage-merchant',
@@ -9,15 +10,16 @@ import { MerchantService } from '../services/merchant.service';
 
 })
 export class ManageMerchantComponent {
-
+  menuVisible: boolean = false;
   merchant: any;
   constructor(private router: Router, private route: ActivatedRoute,
-    private merchantService: MerchantService) { }
+    private merchantService: MerchantService,
+    private authService: AuthService) { }
   ngOnInit(): void {
     const merchantId = sessionStorage.getItem('merchantId');
     if (merchantId) {
       console.log('Retrieved merchant ID:', merchantId);
-      this.merchantService.getMerhcantByMerchantId(merchantId).subscribe({
+      this.merchantService.getMerchantByMerchantId(merchantId).subscribe({
         next: (data: any) => {
           this.merchant = data;
         },
@@ -33,6 +35,10 @@ export class ManageMerchantComponent {
     this.checkTokenExpiration();
     setInterval(() => this.checkTokenExpiration(), 60000); // Check every minute
 
+  }
+
+  toggleSidebar() {
+    this.menuVisible = !this.menuVisible;
   }
 
   checkTokenExpiration() {
@@ -61,9 +67,20 @@ export class ManageMerchantComponent {
     }
   }
 
+  navigateToAnalyticReport(): void {
+    const merchantId = sessionStorage.getItem('merchantId');
+    if (!merchantId) {
+      console.error('Merchant ID is undefined or null');
+      return;
+    }
+    this.router.navigate(['/Analytic-Report', merchantId]);
+  }
+
+
+
 
   logout() {
-    sessionStorage.clear();
+    this.authService.logoutMerchant();
     this.router.navigate(['/Merchants']); // Navigate to the login page
   }
 }

@@ -132,6 +132,19 @@ router.get('/check-email', async (req, res) => {
     }
 });
 
+router.get('/status', async (req, res) => {
+    try {
+        const status = req.query.status;
+        const merchants = await Merchant.find({ status: status });
+        if (!merchants) return res.status(404).json({ message: 'Merchants not found' });
+        res.json(merchants);
+
+    } catch (error) {
+        console.error('Error fetching merchants:', error);
+        res.status(500).json({ message: 'Server error', error: error.message });
+    }
+});
+
 // GET route to check if old password matches
 router.get('/check-oldpassword', async (req, res) => {
     const { newpassword, oldpassword } = req.query;
@@ -167,7 +180,7 @@ router.post('/login', async (req, res) => {
 
         console.log('Credentials match');
         // Generate a JWT token
-        const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '30m' });
+        const token = jwt.sign({ id: merchant._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         console.log('Generated JWT Token:', token);
         res.json({ token }); // Send the token to the client
     } catch (error) {
@@ -195,6 +208,22 @@ router.put('/approve', async (req, res) => {
         await merchant.save();
 
         res.json({ message: 'Merchant approved and password generated', password: plaintextPassword });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+router.put('/reject', async (req, res) => {
+    try {
+        const { _id } = req.body;
+        const merchant = await Merchant.findOne({ _id });
+        if (!merchant) {
+            return res.status(404).json({ message: 'Merchant not found' });
+        }
+        merchant.status = 'rejected';
+        await merchant.save();
+
+        res.json({ message: 'Merchant Rejected' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -291,16 +320,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-
-// PUT route to update a merchant's details
-router.put('/:id', async (req, res) => {
-    try {
-        const updatedMerchant = await Merchant.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(updatedMerchant);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
 
 // DELETE route to remove a merchant
 router.delete('/:id', async (req, res) => {

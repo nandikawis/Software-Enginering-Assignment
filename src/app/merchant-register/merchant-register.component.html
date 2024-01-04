@@ -79,28 +79,6 @@
 
 
         </div>
-        <div class="min-w-4xl max-w-4xl mx-auto  px-5 py-10 bg-white rounded-md shadow-lg  mt-8 "
-            style="background-color: rgba(109, 109, 109, 0);">
-            <div class="mb-4">
-                <div *ngIf="imageData">
-                    <img [src]="imageData" alt="Image">
-
-
-                </div>
-
-            </div>
-        </div>
-        <div class="min-w-4xl max-w-4xl mx-auto  px-5 py-10 bg-white rounded-md shadow-lg  mt-8 "
-            style="background-color: rgba(109, 109, 109, 0);">
-            <div class="mb-4">
-                <div *ngIf="imageData">
-                    <button (click)="downloadFile()">Download File</button>
-                </div>
-            </div>
-        </div>
-
-
-
     </div>
     <div *ngIf="showModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">

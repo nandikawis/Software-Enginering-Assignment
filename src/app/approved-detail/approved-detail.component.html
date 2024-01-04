@@ -1,20 +1,13 @@
-<section class="flex flex-col mx-auto bg-black text-white max-h-fit z-0  px-10 pb-10">
-    <div class="max-w-6xl flex flex-row mx-auto gap-6 ">
-        <div class="flex flex-col  justify-start px-4 py-4 max-h-fitbackdrop-blur rounded"
+<div *ngIf="merchant" class="flex flex-col mx-auto min-w-full gap-3 mx-auto side:justify-self-center items-center ">
+    <div class="w-full flex-row mx-auto  gap-6 ">
+        <div class="flex flex-col  justify-start px-4 py-4 backdrop-blur rounded"
             style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex justify-start   ">
-                <h1 class=" font-sans font-bold text-5xl mt-4 ">Genting SkyWorld Theme Park</h1>
-
-
+                <h1 class=" font-sans font-bold text-5xl mt-4 ">{{merchant.name}}</h1>
             </div>
-
-
             <div class="flex justify-start  gap-2 mt-6">
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas. Donec
-                        duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames sit
-                        lectus. Scelerisque id bibendum velit cras. </p>
+                    <p class="font-light font-sans text-[15px]">{{merchant.companyDescription}}</p>
                 </div>
             </div>
             <div class="flex justify-start  gap-2 mt-6">
@@ -26,7 +19,7 @@
                     <h1 class=" font-sans text-[15px] ">Email :</h1>
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">gentinggroup&#64;gmail.com</p>
+                    <p class="font-light font-sans text-[12px]">{{ merchant.email }}</p>
                 </div>
             </div>
 
@@ -39,7 +32,7 @@
                     <h1 class=" font-sans text-[15px] ">Contact :</h1>
                 </div>
                 <div class="flex items-center">
-                    <p class="font-light font-sans text-[12px]">+61723891247</p>
+                    <p class="font-light font-sans text-[12px]">{{merchant.contactNumber}}</p>
                 </div>
             </div>
 
@@ -47,7 +40,7 @@
 
 
     </div>
-    <div class="max-w-6xl flex flex-col mx-auto mt-6 gap-6 ">
+    <div class="max-w-6xl w-full flex-col mx-auto mt-6 gap-6 ">
         <div class="flex  max-h-fit backdrop-blur rounded" style="background-color: rgba(126, 126, 126, 0.282);">
 
             <div class="flex flex-col justify-start basis-4/6 px-4 py-4">
@@ -59,13 +52,19 @@
                 </div>
                 <div class="flex justify-start  gap-2 mt-2">
                     <div class="flex items-center">
-                        <p class="font-light font-sans text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                            Blandit id fringilla turpis tempor enim. Vel tristique suspendisse eget sodales egestas.
-                            Donec
-                            duis lacus, odio velit eu eget ac tortor. Ac sit ultricies hendrerit pellentesque arcu fames
-                            sit
-                            lectus. Scelerisque id bibendum velit cras. </p>
+                        <p class="font-light font-sans text-[15px]">{{merchant.fileDescription}} </p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-2">
+                    <div class="flex items-center">
+                        <p class="font-light font-sans text-[15px]">{{merchant.fileName}} </p>
+                    </div>
+                </div>
+                <div class="flex justify-start  gap-2 mt-2">
+                    <div *ngIf="imageData" class="flex items-center">
+
+                        <img [src]="imageData" alt="Image">
+
                     </div>
                 </div>
                 <div class="flex justify-start  gap-2 mt-6">
@@ -73,35 +72,27 @@
 
                         <img class="w-[15px] h-[15px]" src="assets/whitemap.png" alt="">
                     </div>
+
                     <div class="flex items-center">
-                        <p class="font-light font-sans text-[12px]">
-                            License.png
-                        </p>
-                    </div>
-                    <div class="flex items-center">
-                        <a href="">
+                        <a (click)="downloadFile()">
                             <p class="font-light font-sans text-[12px] hover:text-blue-500">Download</p>
                         </a>
                     </div>
+
                 </div>
+
             </div>
         </div>
         <div class=" flex max-h-fit backdrop-blur rounded pb-4" style="background-color: rgba(126, 126, 126, 0.282);">
             <div class="flex flex-row justify-between w-full px-4 py-4">
                 <div class="flex justify-start">
                     <div class=" font-sans flex items-center md:flex items-center space-x-5">
-                        <a routerLink="/Officer/Report"
+                        <a (click)="navigateToAnalyticReport(merchant.merchantId)"
                             class="border-2 mt-5 border-darkgray-300 rounded font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-lightgray hover:text-darkgray ">
                             View Analytic Report</a>
                     </div>
                 </div>
-                <div class="flex justify-end">
-                    <div class=" font-sans flex items-center md:flex items-center space-x-5">
-                        <a routerLink="/Officer/Reviews"
-                            class="border-2 mt-5 border-darkgray-300 rounded font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-lightgray hover:text-darkgray ">
-                            Review</a>
-                    </div>
-                </div>
+
 
 
             </div>
@@ -110,4 +101,4 @@
 
 
     </div>
-</section>
+</div>

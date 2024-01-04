@@ -13,31 +13,32 @@
                 <!-- Primary Navbar items -->
                 <div class="flex space-x-5 px-20">
                     <div class="font-medium hidden md:flex items-center space-x-10 ">
-                        <a routerLink="landing-page"
+                        <a *ngIf="userType === null || userType === 'customer'" routerLink="landing-page"
                             class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300 ">Home</a>
-                        <a href="#" class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">About</a>
-                        <a href="#"
-                            class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Services</a>
-                        <a routerLink="/Product"
+                        <a *ngIf="userType === null || userType === 'customer'" (click)="scrollToSection('footer')"
+                            class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300 cursor-pointer">About</a>
+                        <a *ngIf="userType === null || userType === 'customer'" (click)="scrollToSection('service')"
+                            class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300 cursor-pointer">Services</a>
+                        <a *ngIf="userType === null || userType === 'customer'" routerLink="/Product"
                             class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Product</a>
-                        <a routerLink="/Merchants"
+                        <a *ngIf="userType === null || userType === 'merchant'" routerLink="/Merchants"
                             class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Merchants</a>
-                        <a routerLink="/Officer"
-                            class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300">Officer</a>
+                        <a *ngIf="userType === null" (click)="openOfficerModal()"
+                            class="py-4 px-2 text-0D0D0D hover:text-lightgray transition duration-300 cursor-pointer">Officer</a>
                     </div>
                 </div>
                 <div *ngIf="!loggedIn" class="flex space-x-5">
                     <div class="font-sans  flex md:flex items-center space-x-5">
                         <a (click)="openModal()"
-                            class="border-2 border-darkgray-300 rounded-full font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray ">
+                            class="border-2 border-darkgray-300 rounded-full font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray cursor-pointer">
                             Login</a>
                     </div>
                 </div>
 
-                <div *ngIf="loggedIn" class="flex space-x-5 py-2 ">
+                <div *ngIf="loggedIn && userType && userType === 'customer'" class="flex space-x-5 py-2 ">
                     <div class="font-sans flex md:flex items-center space-x-5">
-                        <a class="border-2 w-[40px] h-[40px] border-darkgray-300 rounded-full font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray"
-                            style="background-image: url('assets/rin.jpg'); background-size: cover;"
+                        <a class="border-2 w-[40px] h-[40px] border-darkgray-300 rounded-full font-bold text-darkgray-300 px-3 py-1 transition duration-300 ease-in-out hover:bg-darkgray-300 hover:text-lightgray cursor-pointer"
+                            style="background-image: url('assets/user.png'); background-size: cover;"
                             (click)="toggleDropdown()">
 
                             <div *ngIf="showDropdown" class="absolute bg-white shadow-lg p-2 min-w-[200px] mt-11">
@@ -49,24 +50,51 @@
                         </a>
                     </div>
                 </div>
-                <div *ngIf="loggedIn" class="flex space-x-5">
-                    <button routerLink="/Order" class="outline-none mobile-menu-button ">
 
-                        <img class="w-[30px] h-[30px] mr-4" src="assets/list.png" alt="">
-                    </button>
-                </div>
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button class="outline-none mobile-menu-button">
-                        <a href="" class="bg-cover w-[30px] h-[30px]"
-                            style="background-image: url('assets/menu-bar.png');"></a>
-                        <img class="w-[30px] h-[30px] mr-4" src="assets/menu.png" alt="">
+                    <button class="outline-none mobile-menu-button" (click)="toggleMenu()">
+                        <img class="w-[30px] h-[30px] mr-4" src="assets/menu.png" alt="Menu">
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile menu (hidden on larger screens) -->
     </nav>
+    <!-- Mobile Menu -->
+    <div *ngIf="isMenuVisible" class="fixed flex w-full z-20 flex-col bg-gray-400 items-start space-y-2  py-2">
+        <div class="flex justify-between w-full ">
+            <a *ngIf="userType === null || userType === 'customer'" routerLink="landing-page"
+                class="justify-start pt-2 pb-1 px-6 text-0D0D0D hover:text-lightgray transition duration-300">Home</a>
+            <button *ngIf="userType === null || userType === 'customer'"
+                class="justify-end pt-1 outline-none mobile-menu-button" (click)="toggleMenu()">
+                <img class="w-[30px] h-[30px] mr-4" src="assets/menu.png" alt="Menu">
+            </button>
+        </div>
+        <a *ngIf="userType === null || userType === 'customer'" (click)="scrollToSection('footer')"
+            class=" py-1 px-6 text-0D0D0D hover:text-lightgray transition duration-300 cursor-pointer">About</a>
+        <a *ngIf="userType === null || userType === 'customer'" (click)="scrollToSection('service')"
+            class="py-1 px-6 text-0D0D0D hover:text-lightgray transition duration-300 cursor-pointer">Services</a>
+        <a *ngIf="userType === null || userType === 'customer'" routerLink="/Product"
+            class="py-1 px-6 text-0D0D0D hover:text-lightgray transition duration-300">Product</a>
+        <div class="flex justify-between  w-full ">
+            <a *ngIf="userType === null || userType === 'merchant'" routerLink="/Merchants"
+                class="py-1 px-6 text-0D0D0D hover:text-lightgray transition duration-300">Merchants</a>
+            <button *ngIf="userType === 'merchant'" class="justify-end top-0 outline-none mobile-menu-button"
+                (click)="toggleMenu()">
+                <img class="w-[30px] h-[30px] mr-4" src="assets/menu.png" alt="Menu">
+            </button>
+        </div>
+        <div class="flex justify-between  w-full ">
+            <a *ngIf="userType === null || userType === 'officer'" (click)="openOfficerModal()"
+                class="py-1 px-6 text-0D0D0D hover:text-lightgray transition duration-300 cursor-pointer">Officer</a>
+            <button *ngIf="userType === 'officer'" class="justify-end top-0 outline-none mobile-menu-button"
+                (click)="toggleMenu()">
+                <img class="w-[30px] h-[30px] mr-4" src="assets/menu.png" alt="Menu">
+            </button>
+        </div>
+
+    </div>
     <div *ngIf="showModal" class="fixed z-10  inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
         <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-darkgray">
             <div class="mt-3 text-center">
@@ -79,6 +107,12 @@
                         <input type="email" id="email" formControlName="email"
                             class="shadow-sm bg-transparent border-b-2 text-white border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                             placeholder="Enter your email">
+                        <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+                            class="text-yellow-600">
+                            <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+                            <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
+
+                        </div>
                     </div>
 
                     <div class="mb-4 text-left">
@@ -89,7 +123,7 @@
                     </div>
 
                     <div class="flex items-center justify-center space-x-4 py-3">
-                        <button (click)="login() ; closeModal()"
+                        <button [disabled]="loginForm.invalid" (click)="login() ; closeModal()"
                             class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
                             Login
                         </button>
@@ -113,12 +147,99 @@
             </div>
         </div>
     </div>
+    <!--Officer Login Form -->
+    <div *ngIf="officerModal" class="fixed z-10  inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-darkgray">
+            <div class="mt-3 text-center">
+                <h3 class="text-2xl text-white font-semibold font-sans mb-4">Officer Login</h3>
+
+                <!-- Login Form -->
+                <form [formGroup]="loginOfficerForm" class="mt-8">
+                    <div class="mb-4 text-left">
+                        <label for="username" class="block text-sm text-white font-semibold mb-2">Username</label>
+                        <input type="username" id="username" formControlName="username"
+                            class="shadow-sm bg-transparent border-b-2 text-white border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                            placeholder="Enter your username">
+                        <div *ngIf="loginOfficerForm.get('username')?.touched && loginOfficerForm.get('username')?.invalid"
+                            class="text-yellow-600">
+                            <div *ngIf="loginOfficerForm.get('username')?.errors?.['required']">Username is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 text-left">
+                        <label for="password" class="block text-sm text-white font-semibold mb-2">Password</label>
+                        <input type="password" id="password" formControlName="password"
+                            class="shadow-sm bg-transparent border-b-2 text-white border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                            placeholder="Enter your password">
+
+                        <div *ngIf="loginOfficerForm.get('password')?.touched && loginOfficerForm.get('password')?.invalid"
+                            class="text-yellow-600">
+                            <div *ngIf="loginOfficerForm.get('password')?.errors?.['required']">Password is required.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center space-x-4 py-3">
+                        <button [disabled]="loginOfficerForm.invalid" (click)="loginOfficer() ; closeOfficerModal()"
+                            class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+
+                <!-- Close Modal Button -->
+                <div class="flex items-center justify-center space-x-4 py-3">
+                    <button (click)="closeOfficerModal()"
+                        class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="loginAlert" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Login Failed</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">Your password or email is not match
+                    </p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button (click)="closeLoginAlert(); showModal = true"
+                        class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loginAlert2" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3 text-center">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Login Failed</h3>
+                <div class="mt-2 px-7 py-3">
+                    <p class="text-sm text-gray-500">Your password or username is not match
+                    </p>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button (click)="closeLoginAlert2(); officerModal = true"
+                        class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <router-outlet></router-outlet>
-    <section class=" mx-auto text-white z-10 bg-cover bg-black ">
-        <div class="max-w-6xl flex flex-row min-h-[70vh] mx-auto justify-between items-center border-b-2 ">
-            <div class="flex-col border-2 border-transparent max-w-lg">
+    <section class=" mx-auto text-white z-0 bg-cover bg-black ">
+        <div id="service" class="max-w-6xl flex flex-row min-h-[70vh] mx-auto justify-between items-center border-b-2 ">
+            <div class="side:pl-10 flex-col border-2 border-transparent max-w-lg">
                 <div class="flex justify-start  mx-auto ">
                     <h1 class=" font-sans font-bold text-3xl mt-4 ">Why</h1>
                     <a href="" class="flex items-center py-1 px-2">
@@ -131,19 +252,19 @@
                     everywhere easlly</p>
 
             </div>
-            <div class="hidden md:relative md:max-w-[50%]  md:flex md:rounded  md:grid md:grid-cols-6 ">
+            <div class="hidden md:relative z-0 md:max-w-[50%]  md:flex md:rounded  md:grid md:grid-cols-6 ">
                 <div class="col-start-1 col-span-4 ">
 
-                    <img class=" w-full h-full " src="https://source.unsplash.com/1000x600?malaysia" alt="">
+                    <img class="z-0 w-full h-full " src="https://source.unsplash.com/1000x600?malaysia" alt="">
                 </div>
                 <div class="col-start-3 col-end-7 ">
-                    <img class=" w-full h-full " src="https://source.unsplash.com/1000x600?malaysia" alt="">
+                    <img class="z-0 w-full h-full " src="https://source.unsplash.com/1000x600?malaysia" alt="">
                 </div>
 
             </div>
         </div>
     </section>
-    <section class=" mx-auto text-white z-10 bg-cover bg-black">
+    <section class="side:pl-10 side:pb-10 mx-auto text-white z-0 bg-cover bg-black">
         <div class="max-w-6xl flex  flex-col md:flex-row min-h-[70vh] mx-auto  pt-10 ">
             <div class=" flex flex-col max-w-4xl  w-full">
                 <div class="flex justify-start ">
@@ -211,7 +332,7 @@
                     </div>
                 </div>
                 <div class="flex justify-start gap-2 mx-auto mt-10">
-                    <h1 class=" font-sans text-white text-sm mt-4 ">tourtiger&#64;gmail.com</h1>
+                    <h1 class=" font-sans text-white text-sm mt-4 ">tourtigercompany&#64;gmail.com</h1>
                 </div>
                 <div class="flex justify-start gap-2 mx-auto mt-10">
                     <h1 class=" font-sans text-white text-sm mt-4 ">Denpasar-Gilimanuk Street, Kapal, Mengwi, Badung,
@@ -222,11 +343,12 @@
         </div>
     </section>
 </body>
-<footer class=" flex-col  mx-auto md:min-h-[2000px] lg:min-h-[400px] border-2 ">
+<footer id="footer" class=" flex-col  mx-auto md:min-h-[2000px] lg:min-h-[400px] border-2 ">
     <img src="assets/blacklogo.png" alt="logo" class="h-12 w-40 mx-auto mt-20">
     <div>
-        <p class="max-w-sm text-center mx-auto mt-10">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
-            repellendus aut placeat cupiditate neque ex?
+        <p class="max-w-sm text-center mx-auto mt-10">Discover the thrill of adventure with TourTiger. Embark on
+            journeys that tread lightly but leave deep impressions. Connect with us on social media, and let's make your
+            next travel experience unforgettable.
         </p>
         <div class="flex flex-row max-w-fit mx-auto mt-10 gap-6">
             <img src="assets/twitter.png" alt="" class="w-6 h-6">

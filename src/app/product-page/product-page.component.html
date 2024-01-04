@@ -92,12 +92,119 @@
                 </ul>
             </div>
         </aside>
+
+
+        <aside *ngIf="menuVisible" id="default-sidebar" class="fixed  top-[3.6rem] left-0 w-64 h-screen "
+            aria-label="Sidebar basis-1/4 ">
+            <div class="h-fit px-3 py-4 overflow-y-auto mb-3 " style="background-color: rgb(20, 20, 20);">
+                <div class="text-lg font-sans font-bold mb-2">
+                    <h1>Category</h1>
+                </div>
+                <ul class=" space-y-2 font-medium">
+                    <li>
+                        <button (click)="fetchCategory('Attraction')"
+                            class="flex w-full items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 22 21">
+                                <path
+                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                <path
+                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                            </svg>
+                            <span class="ms-3">Attraction</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button (click)="fetchCategory('Accommodation')"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 22 21">
+                                <path
+                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                <path
+                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                            </svg>
+                            <span class="ms-3">Accommodation</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button (click)="fetchCategory('Shopping')"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 22 21">
+                                <path
+                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                <path
+                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                            </svg>
+                            <span class="ms-3">Shopping</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button (click)="fetchCategory('Tour')"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 22 21">
+                                <path
+                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                <path
+                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                            </svg>
+                            <span class="ms-3">Tour</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button (click)="fetchCategory('Event&Exhibition')"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 22 21">
+                                <path
+                                    d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z" />
+                                <path
+                                    d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z" />
+                            </svg>
+                            <span class="ms-3">Event & Exhibitions</span>
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="h-fit px-3 py-4 overflow-y-auto " style="background-color: rgb(20, 20, 20);">
+                <ul class="space-y-2 font-medium">
+                    <li>
+                        <a routerLink="/landing-page"
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <img class="w-5 h-5" src="assets/prev.png" alt="">
+                            <span class="ms-3">Back</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+
+        <button *ngIf="!menuVisible"
+            class="side:block z-20 side:right-0 mr-4 mt-10 py-1 px-2 w-[100px] h-[40px] rounded-full bg-black border-2 border-white side:fixed hidden flex justify-center items-center"
+            (click)="toggleSidebar()">
+            <h1 class="text-white font-semibold">Category</h1>
+        </button>
+        <button *ngIf="menuVisible"
+            class="side:block z-20 side:right-0 mr-4 mt-10 py-1 px-2 w-[50px] h-[40px] rounded-full bg-black border-2 border-white side:fixed hidden flex justify-center items-center"
+            (click)="toggleSidebar()">
+            <h1 class="text-white font-semibold">X</h1>
+        </button>
         <div class="flex-1">
             <div class="flex flex-col  min-w-full gap-3 mx-auto side:justify-self-center items-center ">
 
                 <ng-container *ngFor="let card of cardsForCurrentPage">
                     <div class="max-w-sm w-full bg-blue-500 sides:max-w-full sides:flex">
-                        <img class="h-48 sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
+                        <img class="h-48 w-full sides:h-auto sides:w-48 flex-none bg-cover rounded-t sides:rounded-t-none sides:rounded-l text-center overflow-hidden"
                             [src]="card.imageData" alt="Image">
                         <div
                             class="border-r border-b border-l w-full border-gray-400 sides:border-l-0 sides:border-t sides:border-gray-400 bg-white rounded-b sides:rounded-b-none sides:rounded-r p-4 flex flex-col justify-between leading-normal">
@@ -111,9 +218,28 @@
                             </div>
                             <div class="flex justify-between">
 
-                                <div class="text-sm">
-                                    <p class="text-gray-900 leading-none">{{card.price}}</p>
-                                    <p class="text-gray-600">{{card.averageRating}}</p>
+                                <div class="text-sm ">
+                                    <p class="text-gray-900 font-semibold leading-none"> $ {{card.price}}</p>
+                                    <div
+                                        class="flex items-center rounded-full text-sm font-semibold text-white bg-black px-3 mt-2 ">
+                                        <div class="flex justify-start items-center">
+                                            <!-- Full Stars -->
+                                            <ng-container *ngFor="let star of getfullStars(card.averageRating)">
+                                                <img class="w-[15px] h-[15px]" src="assets/star.png" alt="star">
+                                            </ng-container>
+
+                                            <!-- Half Star -->
+                                            <img *ngIf="gethasHalfStar(card.averageRating)" class="w-[7.5px] h-[15px]"
+                                                src="assets/half-star.png" alt="half star">
+                                        </div>
+
+                                        <div class="flex items-center ">
+                                            <p class="font-light font-sans text-[12px]">
+                                                ({{formatRating(card.averageRating)}}) | ({{card.numberOfRatings}})
+                                                Reviews
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
 
 

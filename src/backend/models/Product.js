@@ -23,6 +23,11 @@ const productSchema = new mongoose.Schema({
         required: true,
         enum: ['Shopping', 'Attraction', 'Accommodation', 'Event&Exhibition', 'Tour']
     },
+    location: {
+        type: String,
+        required: true
+    }
+    ,
     price: {
         type: Number,
         required: true
@@ -35,6 +40,11 @@ const productSchema = new mongoose.Schema({
     fileName: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['available', 'deleted', 'unavailable'],
+        default: 'available'
     }
 });
 

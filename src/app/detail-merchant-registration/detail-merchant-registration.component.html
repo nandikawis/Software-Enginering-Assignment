@@ -92,7 +92,7 @@
                     </button>
                 </div>
                 <div class="flex justify-end">
-                    <button routerLink="/Officer" (click)="deleteMerchant(merchant._id)"
+                    <button (click)="openConfirmModal()"
                         class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:ring-blue-300">
                         Decline
                     </button>
@@ -112,6 +112,40 @@
                     </div>
                     <div class="items-center px-4 py-3">
                         <button routerLink="/Officer" (click)="closeModal()"
+                            class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="confirmModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3 text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Are you sure to reject this merchant?</h3>
+                    <div class="justify-between px-4 py-3">
+                        <button (click)="closeConfirmModal()"
+                            class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                            Cancel
+                        </button>
+                        <button (click)="rejectMerchant(merchant._id)"
+                            class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
+                            Continue Reject
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="rejectModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full ">
+            <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+                <div class="mt-3 text-center">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Merhchant has been rejected</h3>
+                    <div class="mt-2 px-7 py-3">
+                        <p class="text-sm text-gray-500">This merchant wont be able to registered the same email anymore
+                        </p>
+                    </div>
+                    <div class="items-center px-4 py-3">
+                        <button routerLink="/Officer" (click)="closeRejectModal()"
                             class="px-4 py-2 bg-green-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-green-700 focus:outline-none focus:ring focus:ring-green-300">
                             Close
                         </button>

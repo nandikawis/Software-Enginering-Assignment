@@ -14,6 +14,7 @@ export class ReviewMerchantRegistrationComponent {
   public pageSize = 5;
   public currentPage = 1;
   public totalPages: number;
+  notEmpty: boolean = false;
 
   constructor(private merchantService: MerchantService, private router: Router) {
     this.totalPages = Math.ceil(this.cards.length / this.pageSize);
@@ -21,10 +22,17 @@ export class ReviewMerchantRegistrationComponent {
 
   }
   ngOnInit(): void {
-    this.merchantService.displayMerchants().subscribe({
+    const status = 'pending';
+    this.merchantService.getMerchantByStatus(status).subscribe({
       next: (data) => {
         this.cards = data;
         this.totalPages = Math.ceil(this.cards.length / this.pageSize);
+        if (this.cards.length > 0) {
+          this.notEmpty = true;
+        } else {
+          this.notEmpty = false;
+        }
+
       },
       error: (error) => {
         console.error('Error fetching merchants', error);

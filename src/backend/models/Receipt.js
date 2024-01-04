@@ -58,6 +58,11 @@ const receiptSchema = new mongoose.Schema({
     date: {
         type: String,
         required: true
+    },
+    reviewStatus: {
+        type: String,
+        enum: ['pending', 'reviewed'],
+        default: 'pending'
     }
 });
 

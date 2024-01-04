@@ -4,7 +4,6 @@
         <h2 class="text-2xl font-semibold font-sans mb-4">Add New Product</h2>
         <form [formGroup]="productForm">
 
-            <!-- Product Name -->
             <div class="mb-4">
                 <label for="productName" class="block text-sm font-semibold mb-2">Product Name</label>
                 <input type="text" formControlName="productName"
@@ -15,8 +14,6 @@
                     Product name is required.
                 </div>
             </div>
-
-            <!-- Categories Dropdown -->
             <div class="mb-4">
                 <label for="category" class="block text-sm font-semibold mb-2">Categories</label>
                 <select formControlName="category"
@@ -25,7 +22,7 @@
                     <option value="Shopping">Shopping</option>
                     <option value="Attraction">Attraction</option>
                     <option value="Accommodation">Accommodation</option>
-                    <option value="Event">Event&Exhibitions</option>
+                    <option value="Event&Exhibition">Event&Exhibitions</option>
                     <option value="Tour">Tour</option>
                 </select>
                 <div *ngIf="productForm.get('category')?.touched && productForm.get('category')?.invalid"
@@ -34,7 +31,17 @@
                 </div>
             </div>
 
-            <!-- Price -->
+            <div class="mb-4">
+                <label for="location" class="block text-sm font-semibold mb-2">Location</label>
+                <input type="text" formControlName="location"
+                    class="shadow-sm bg-transparent border-b-2 border-gray-300 text-sm focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                    placeholder="Enter product location">
+                <div *ngIf="productForm.get('location')?.touched && productForm.get('location')?.invalid"
+                    class="text-red-600">
+                    location is required.
+                </div>
+            </div>
+
             <div class="mb-4">
                 <label for="price" class="block text-sm font-semibold mb-2">Price</label>
                 <input type="text" formControlName="price"
@@ -46,8 +53,6 @@
                     <div *ngIf="productForm.get('price')?.errors?.['pattern']">Invalid price format.</div>
                 </div>
             </div>
-
-            <!-- Product Description -->
             <div class="mb-4">
                 <label for="productDescription" class="block text-sm font-semibold mb-2">Product Description</label>
                 <textarea formControlName="productDescription"
@@ -64,7 +69,6 @@
                 <input type="file" formControlName="file" (change)="onFileSelected($event)" />
             </div>
 
-            <!-- Submit Button -->
             <div class="flex justify-end">
                 <button (click)="openModal()"
                     class="bg-darkgreen text-white px-6 py-2 rounded-md hover:bg-green-700 focus:outline-none focus:ring focus:ring-blue-300">

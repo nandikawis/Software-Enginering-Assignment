@@ -98,4 +98,20 @@ router.get('/productId', async (req, res) => {
     }
 })
 
+router.put('/updateReviewStatus', async (req, res) => {
+    const { paypalTransactionId } = req.body;
+    try {
+        const receipt = await Receipt.findOne({ paypalTransactionId: paypalTransactionId });
+        if (!receipt) {
+            return res.status(404).json({ message: 'Receipt not found' });
+        }
+
+        receipt.reviewStatus = 'reviewed';
+        await receipt.save();
+        res.json({ message: 'Receipt updated successfully', receipt: receipt });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
 module.exports = router;
